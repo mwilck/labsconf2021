@@ -1,0 +1,17 @@
+image: registry.opensuse.org/opensuse/leap:15.3
+
+pages:
+  script:
+    - zypper refresh
+    - zypper -n install --no-recommends rsync ruby2.5-rubygem-sass git
+    - git submodule update --init
+    - mkdir -p public
+    - >
+      rsync -ric --exclude=/public
+      --include=reveal.js/dist --include=reveal.js/plugin --exclude=reveal.js/*
+      --exclude=/.* --include=* ./ public/
+    - sass --update reveal.js/css/print:public/reveal.js/dist/print
+    - sass -E utf-8 --update css public/css
+  artifacts:
+    paths:
+      - public
