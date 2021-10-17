@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 12 22" width="360" height="660">
+	<defs>
+		<path id="p" d="M0,0H1L.85,.15H.15z"/>
+		<g id="mino">
+			<rect width="1" height="1"/>
+			<use xlink:href="#p" fill="#fff" fill-opacity=".7"/>
+			<use xlink:href="#p" fill="#000" fill-opacity=".3" transform="rotate(90 .5 .5)"/>
+			<use xlink:href="#p" fill="#000" fill-opacity=".7" transform="rotate(180 .5 .5)"/>
+			<use xlink:href="#p" fill="#fff" fill-opacity=".3" transform="rotate(270 .5 .5)"/>
+		</g>
+		<pattern id="screenBorderDef" width="1" height="1" patternUnits="userSpaceOnUse">
+			<use xlink:href="#mino" fill="#777"/>
+		</pattern>
+		<use id="red" xlink:href="#mino" fill="#f00"/>
+		<use id="orange" xlink:href="#mino" fill="#f70"/>
+		<use id="yellow" xlink:href="#mino" fill="#ff0"/>
+		<use id="green" xlink:href="#mino" fill="#0f0"/>
+		<use id="cyan" xlink:href="#mino" fill="#0ff"/>
+		<use id="blue" xlink:href="#mino" fill="#00a"/>
+		<use id="magenta" xlink:href="#mino" fill="#c0c"/>
+		<g id="cyanGhost">
+			<rect width="1" height="1" fill="#0ff"/>
+			<rect x=".1" y=".1" width=".8" height=".8" fill="#000"/>
+		</g>
+	</defs>
+	<rect fill="url(#screenBorderDef)" x="0" y="0" width="12" height="22"/>
+	<g transform="translate(1,1)">
+		<rect fill="#000" width="10" height="20"/>
+		<use xlink:href="#cyan" x="9" y="5"/>
+		<use xlink:href="#cyan" x="9" y="6"/>
+		<use xlink:href="#cyan" x="9" y="7"/>
+		<use xlink:href="#cyan" x="9" y="8"/>
+
+		<use xlink:href="#magenta" x="0" y="11"/>
+		<use xlink:href="#yellow" x="3" y="11"/>
+		<use xlink:href="#yellow" x="4" y="11"/>
+		<use xlink:href="#green" x="5" y="11"/>
+
+		<use xlink:href="#magenta" x="0" y="12"/>
+		<use xlink:href="#magenta" x="1" y="12"/>
+		<use xlink:href="#red" x="2" y="12"/>
+		<use xlink:href="#yellow" x="3" y="12"/>
+		<use xlink:href="#yellow" x="4" y="12"/>
+		<use xlink:href="#green" x="5" y="12"/>
+		<use xlink:href="#green" x="6" y="12"/>
+
+		<use xlink:href="#magenta" x="0" y="13"/>
+		<use xlink:href="#red" x="1" y="13"/>
+		<use xlink:href="#red" x="2" y="13"/>
+		<use xlink:href="#magenta" x="3" y="13"/>
+		<use xlink:href="#red" x="4" y="13"/>
+		<use xlink:href="#red" x="5" y="13"/>
+		<use xlink:href="#green" x="6" y="13"/>
+
+		<use xlink:href="#green" x="0" y="14"/>
+		<use xlink:href="#red" x="1" y="14"/>
+		<use xlink:href="#orange" x="2" y="14"/>
+		<use xlink:href="#magenta" x="3" y="14"/>
+		<use xlink:href="#magenta" x="4" y="14"/>
+		<use xlink:href="#red" x="5" y="14"/>
+		<use xlink:href="#red" x="6" y="14"/>
+		<use xlink:href="#orange" x="7" y="14"/>
+
+		<use xlink:href="#green" x="0" y="15"/>
+		<use xlink:href="#green" x="1" y="15"/>
+		<use xlink:href="#orange" x="2" y="15"/>
+		<use xlink:href="#magenta" x="3" y="15"/>
+		<use xlink:href="#yellow" x="4" y="15"/>
+		<use xlink:href="#yellow" x="5" y="15"/>
+		<use xlink:href="#blue" x="6" y="15"/>
+		<use xlink:href="#orange" x="7" y="15"/>
+
+		<use xlink:href="#blue" x="0" y="16"/>
+		<use xlink:href="#green" x="1" y="16"/>
+		<use xlink:href="#orange" x="2" y="16"/>
+		<use xlink:href="#orange" x="3" y="16"/>
+		<use xlink:href="#yellow" x="4" y="16"/>
+		<use xlink:href="#yellow" x="5" y="16"/>
+		<use xlink:href="#blue" x="6" y="16"/>
+		<use xlink:href="#orange" x="7" y="16"/>
+		<use xlink:href="#orange" x="8" y="16"/>
+		<use xlink:href="#cyanGhost" x="9" y="16"/>
+
+		<use xlink:href="#blue" x="0" y="17"/>
+		<use xlink:href="#blue" x="1" y="17"/>
+		<use xlink:href="#blue" x="2" y="17"/>
+		<use xlink:href="#orange" x="3" y="17"/>
+		<use xlink:href="#magenta" x="4" y="17"/>
+		<use xlink:href="#blue" x="5" y="17"/>
+		<use xlink:href="#blue" x="6" y="17"/>
+		<use xlink:href="#red" x="7" y="17"/>
+		<use xlink:href="#cyan" x="8" y="17"/>
+		<use xlink:href="#cyanGhost" x="9" y="17"/>
+
+		<use xlink:href="#cyan" x="0" y="18"/>
+		<use xlink:href="#orange" x="1" y="18"/>
+		<use xlink:href="#orange" x="2" y="18"/>
+		<use xlink:href="#orange" x="3" y="18"/>
+		<use xlink:href="#magenta" x="4" y="18"/>
+		<use xlink:href="#magenta" x="5" y="18"/>
+		<use xlink:href="#red" x="6" y="18"/>
+		<use xlink:href="#red" x="7" y="18"/>
+		<use xlink:href="#cyan" x="8" y="18"/>
+		<use xlink:href="#cyanGhost" x="9" y="18"/>
+
+		<use xlink:href="#cyan" x="0" y="19"/>
+		<use xlink:href="#yellow" x="1" y="19"/>
+		<use xlink:href="#yellow" x="2" y="19"/>
+		<use xlink:href="#green" x="3" y="19"/>
+		<use xlink:href="#magenta" x="4" y="19"/>
+		<use xlink:href="#cyan" x="5" y="19"/>
+		<use xlink:href="#red" x="6" y="19"/>
+		<use xlink:href="#red" x="7" y="19"/>
+		<use xlink:href="#cyan" x="8" y="19"/>
+		<use xlink:href="#cyanGhost" x="9" y="19"/>
+	</g>
+</svg>
