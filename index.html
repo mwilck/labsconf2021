@@ -27,7 +27,7 @@
 	    <div class="date-location">22 October 2021</div>
 	    <div class="title">
 	      <h1>Tuning Initramfs Generation and Kernel Updates</h1>
-	      <h2>David Disseldorp, Martin Wilck, SUSE Labs</h2>
+	      <h2>Martin Wilck, David Disseldorp, SUSE Labs</h2>
 	    </div>
 	  </section>
 	  <section data-markdown data-state="normal toc">
@@ -104,7 +104,7 @@
 		## Module Compresion
 
 		* **Compress:** when the kernel is built
-		* **Uncompress:** whenmodules are read
+		* **Uncompress:** when modules are read
 		* **Affects** kernel size (package & installed)
 		* **xz** supported with `kmod` 3, kernel v3.18
 		  * **SUSE:** in SLE15-SP3 / Leap 15.3, TW
@@ -255,7 +255,7 @@ For all installed kernels:
 		simpler, faster one;
 	      </li>
 	      <li class="fragment" data-fragment-index="2">
-		Use <strong>zstd compression</strong>for the initramfs;
+		Use <strong>zstd compression</strong> for the initramfs;
 	      </li>
 	      <li class="fragment" data-fragment-index="3">
 		Use <strong>cpio reflinking</strong> for the initramfs;
@@ -441,6 +441,12 @@ conditions
 	  </section>
 
 	</section>
+
+        <section data-markdown="markdown/80-reflinks.md"
+                 data-separator="^\n\n\n"
+                 data-separator-vertical="^\n\n"
+                 data-separator-notes="^Note:">
+        </section>
 
         <section data-markdown="markdown/90-postscript.md"
                  data-separator="^\n\n\n"
