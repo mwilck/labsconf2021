@@ -6,7 +6,7 @@ Reveal.initialize({
     width: 1600,
     height: 900,
 
-    margin: 0.01,
+    margin: 0.05,
 
     controls: true, // press C to toggle
     controlsTutorial: true,
@@ -42,7 +42,9 @@ Reveal.configure({
         67: function() {
             Reveal.configure({ controls: ! Reveal.getConfig()['controls'] });
         },
-  }
+    },
+    pdfSeparateFragments: false,
+    pdfMaxPagesPerSlide: 1
 });
 
 // Left/right mouse click to advance to next / previous slides.

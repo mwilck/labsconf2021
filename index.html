@@ -14,23 +14,19 @@
     <link rel="stylesheet" href="reveal.js/plugin/highlight/monokai.css"/>
     <link rel="stylesheet" href="css/reveal-override.css"/>
 
-    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
-    <script>
-        document.write( '<link rel="stylesheet" href="reveal.js/dist/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
-    </script>
 </head>
 <body>
     <div class="reveal">
       <div class="slides">
 	<section>
-	  <section data-state="cover-alternate" id="cover-page-alternate">
+	  <section class="cover" data-state="cover-alternate" id="cover-page-alternate">
 	    <div class="date-location">22 October 2021</div>
 	    <div class="title">
 	      <h1>Tuning Initramfs Generation and Kernel Updates</h1>
 	      <h2>Martin Wilck, David Disseldorp, SUSE Labs</h2>
 	    </div>
 	  </section>
-	  <section data-markdown data-state="normal toc">
+	  <section data-markdown data-state="normal toc" class="toc">
 	    # Agenda
 
 	    1. Compression Algorithms: Speed and Efficiency (Martin)
@@ -76,7 +72,7 @@
 	</section>
 
 	<section>
-	  <section data-state="divider" id="divider">
+	  <section data-state="divider" id="divider" class="divider">
 	    <h1>Compression Algorithms: Speed and Efficiency</h1>
 	    <a href="https://pixahive.com/photo/the-vintage/">
 	      <img alt="the vintage" src="images/the-vintage-115544-pixahive-1024x768.jpg"
@@ -210,7 +206,7 @@ Does this matter? We will see ...
 	    </a>
 	  </section>
 -->
-	  <section data-state="divider" id="divider">
+	  <section data-state="divider" class="divider" id="divider">
 	    <h1>Tuning Installation of kernel and KMPs</h1>
 	    <a href="https://pixabay.com/de/photos/vw-vw-k%c3%a4fer-volkswagen-k%c3%a4fer-4024868/">
 	      <img alt="Building to Build Framework" src="images/vw-4024868_1280.jpg"
