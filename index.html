@@ -81,19 +81,33 @@
 	    </a>
 	  </section>
 
-	  <section data-markdown data-state="normal">
-<script type="text/template">
-# Module and Initramfs Compression
+	  <section data-state="normal">
+	    <h1>Module and Initramfs Compression</h1>
+	    <div class="multicol">
+	      <div class="col"  data-markdown>
+		## Initramfs Compression
 
-|                     | Initramfs             | Modules                      |
-|:--------------------|:----------------------|:-----------------------------|
-| Affects size of     | Initramfs             | kernel (package & installed) |
-| Compress            | **dracut**            | kernel build (OBS)           |
-| Uncompress          | early boot            | **modprobe**, **depmod**     |
-| xz in SLE since     | SLE12                 | SLE15-SP3                    |
-| zstd supported with | v5.9, **dracut** 054  | v5.13, **kmod** 28           |
-| zstd in SLE         | SLE15-SP4 (SLE-20248) | SLE15-SP4 (SLE-21256)        |
-</script>
+		* **Compress:** when the initramfs is built
+		* **Uncompress:** once during early boot
+		* **Affects** size of initramfs image
+		* **xz** compression used since SLE12
+		* **zstd** supported with kernel v5.9 (`CONFIG_RD_ZSTD`),
+		`dracut` 054 and later
+		* default in SLE15-SP4 (SLE-20248)
+
+	      </div>
+	      <div class="col" data-markdown>
+		## Module Compresion
+
+		* **Compress:** when the kernel is built
+		* **Uncompress:** when modules are read
+		* **Affects** kernel size (package & installed)
+		* **xz** supported with `kmod` 3, kernel v3.18
+		  * **SUSE:** in SLE15-SP3 / Leap 15.3, TW
+		* **zstd** supported with `kmod` 28, kernel v5.13
+		* Changes in other packages required (e.g. `rpm-config-SUSE`)
+	      </div>
+	    </div>
 	  </section>
 
 	  <section data-state="normal">
