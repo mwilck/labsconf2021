@@ -404,34 +404,20 @@ For all installed kernels:
 	    </div>
 	  </section>
 	</section>
+        <section>
+          <section data-markdown data-state="normal"data-separator-notes="^Note:">
+<script type="text/template">
+# Optimizing Kernel and KMP Installation: Summary
 
-	<section>
-	  <section data-state="normal">
-	    <h1>Speeding up Installation: Summary</h1>
-	    <div class="multicol">
-	      <div class="col fragment" data-markdown>
-### Kernel update
+* Deterioration SP2 ⇒ SP3 caused by **depmod** on **xz**-compressed modules
+* Profiling showed multiple bottlenecks
+* Cumulative savings:
+  - Kernel installation: **66s ⇒ 21s**
+  - KMP installation: **100s ⇒ 15s**
+* Efficient initramfs generation is an important factor…
 
-<!-- * Leap 15.3 > SLED 15 SP3 > SLES 15 SP3 caused by initramfs generation in --
-  -- `%post` -->
-* Deterioration SP2 ⇒ SP3 caused by **depmod**
-* Using either **zstd or cpio-reflinking for Initramfs** saves ~10s, `zstd` is slightly slower
-* **zstd compression for modules** saves ~16s
-* Initramfs build in `%posttrans` saves ~14s
-* **Overall**, with parallelization: **66s ⇒ 21s**
-	      </div>
-	      <div class="col fragment" data-markdown>
-### KMP installation
-
-* Deterioration SP2 ⇒ SP3 caused by **depmod**
-* **Accellerated lsinitrd** saves ~10s
-* **zstd compression for modules** saves ~40s
-* **Incremental depmod** saves ~17s
-* **Overall**, with parallelization: **100s ⇒ 15s**
-	      </div>
-	    </div>
+</script>
 	  </section>
-
 	</section>
 
         <section data-markdown="markdown/80-reflinks.md"
