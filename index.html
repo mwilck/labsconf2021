@@ -227,7 +227,8 @@ We will see ...
 	    </a>
 	  </section>
 	  <section data-state="normal">
-	    <h1>What Does <tt>weak-modules2</tt>?</h1>
+	    <h1>What Is <tt>weak-modules2</tt> …</h1>
+	    <h2>… and why does it run so long?</h2>
 	      <div class="multicol">
 		<div class="col"  data-markdown>
 ### Kernel installation / update
@@ -237,9 +238,18 @@ We will see ...
    - check KABI compatibility (calling `depmod`) and create symlinks under `weak-modules/`
 3. Call `dracut` to rebuild the initramfs.
 
-Similar for "pseudo-KMPs" and kernel subpackages (`-extra`, `-optional`)
+Similar for kernel subpackages (`-extra`)
 		</div>
-		<div class="col" data-markdown>
+		<div class="col" style="flex-grow: 1.0">
+		  <img src="images/kernel-inst-00.svg"/>
+		</div>
+	      </div>
+	  </section>
+	  <section data-state="normal">
+	    <h1>What Is <tt>weak-modules2</tt> …</h1>
+	    <h2>… and why does it run so long?</h2>
+	      <div class="multicol">
+		<div class="col"  data-markdown>
 ### KMP installation
 
 For all installed kernels:
@@ -250,35 +260,38 @@ For all installed kernels:
 4. Run `depmod`
 5. If modules in Initramfs are affected (`lsinitrd`), schedule Initramfs rebuild
 		</div>
+		<div class="col" style="flex-grow: 1.0">
+		  <img src="images/KMP-inst-00.svg"/>
+		</div>
 	      </div>
-	    </section>
+	  </section>
 	  <section data-state="normal">
-	    <h1>Opportunities for Optimization</h1>
+	    <h1>Optimization of the Installation Process</h1>
 	    <ul>
 	      <li class="fragment" data-fragment-index="1">
-		Replace dracut's slow <tt>lsinitrd</tt> program with a
+		Replace dracut's slow <strong>lsinitrd</strong> program with a
 		simpler, faster one;
 	      </li>
 	      <li class="fragment" data-fragment-index="2">
-		Use <strong>zstd compression</strong> for the initramfs;
+		For <strong>initramfs</strong>, use <strong>cpio reflinking</strong> for the initramfs when
+		possible, <strong>zstd</strong> otherwise;
 	      </li>
 	      <li class="fragment" data-fragment-index="3">
-		Use <strong>cpio reflinking</strong> for the initramfs;
+		Use <strong>zstd</strong> compression for <strong>kernel modules</strong>;
 	      </li>
 	      <li class="fragment" data-fragment-index="4">
-		Postpone building the initramfs from <tt>%post</tt>
-		to <tt>%posttrans</tt> to avoid building it multiple times;
+		<strong>Postpone</strong> initramfs building from <tt>%post</tt>
+		to <tt>%posttrans</tt>,
 	      </li>
 	      <li class="fragment" data-fragment-index="5">
-		<strong>Improve depmod</strong>: 
-		Avoid scanning every module when checking KABI
-		compatibility of added modules. Patch set in the works!
+		<strong>Incremental depmod</strong>: 
+		Avoid scanning every module, always. Patch set in the works;
 	      </li>
 	      <li class="fragment" data-fragment-index="6">
 		Apply <strong>parallelization</strong>:
 		<ul>
 		  <li>dracut invocation in <tt>%posttrans</tt>,</li>
-		  <li>KABI check for multiple kernels;</li>
+		  <li>KABI check in <tt>weak-modules2</tt>.</li>
 		</ul>
 	      </li>
 	      <li class="fragment" data-fragment-index="7">
