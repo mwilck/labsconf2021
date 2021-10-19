@@ -130,13 +130,15 @@
 	  <section data-markdown data-state="normal">
 	      # Switch the default initramfs compression to zstd!
 
-	      * Consistent test results over a large variety of test systems
+	      * Recommended options: `zstd -T0 -3` (the default)
 	      * **Cost:** ~2MiB disk space
 	      * **Gain:** ~3s per initramfs build, 10-20x faster decompression time
 	      * This agrees with expectations based on [previous studies](https://engineering.fb.com/2016/08/31/core-data/smaller-and-faster-data-compression-with-zstandard/)
-	      * Achieves consistent results with multithreading, scales well
-	      * Recommended options `zstd -T0 -3` (the default)
-	      * CoW reflinks (Davids topic) may be even better *(stay awake!)*
+	      * **zstd** scales well and achieves consistent results with
+	      multithreading
+
+	      CoW reflinks (David's topic) may be even better, but aren't
+	      always available  *(stay awake)* !
             </script>
 	  </section>
 
