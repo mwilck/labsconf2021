@@ -169,27 +169,22 @@
 	    </div>
 	  </section>
 
-	  <section data-markdown data-state="normal">
+	  <section data-markdown data-state="normal"data-separator-notes="^Note:">
 <script type="text/template">
 # Module Compression: Effect on Disk Usage
 ## For kernel-default, x86_64
 
-|                 | # modules | rpm size | modules  | initramfs (xz)|
-|:----------------|----------:|---------:|---------:|----------:|
-| SLE15-SP2       |      2061 |      55M |    170M  | 12M |
-| SLE15-SP3 (xz)  |      2165 |      67M |     35M  | 15M |
-| SLE15-SP3 (zst) |      2165 |      79M |     47M  | 18M |
+|                          | # modules | rpm size | modules | difference |
+|:-------------------------|----------:|---------:|--------:|-----------:|
+| SLE15-SP2 (uncompressed) |      2061 |      55M |    170M |            |
+| SLE15-SP3 (xz)           |      2165 |      67M |     35M |      -135M |
+| SLE15-SP3 (zst)          |      2165 |      79M |     47M |      -123M |
 
-* `zstd` saves 123MiB (72%) of disk space used for modules, `xz` 135MiB (79%)
-* **Package** and **initramfs** size is smallest for uncompressed modules
-* **Total** additional disk space `zstd` vs. `xz`: **~17 MiB**
-
-<p class="footnote">
-Note that the rpm <tt>%{size}</tt> property of SUSE kernel
-packages is incorrect because of the included <tt>%{ghost}</tt> files.</p>
+Total additional disk space `zstd` vs. `xz`: ~17 MiB
   
-
-<!--  | TW 2109 (xz)    |      4706 |     107M |     78M  | 41M (17M) | -->
+Note: the rpm <tt>%{size}</tt> property of SUSE kernel
+packages is incorrect because of the included <tt>%{ghost}</tt> files.
+  
 </script>
 
 	  </section>
@@ -460,6 +455,30 @@ conditions
     - install anothe update kernel.
 * **Validation:** Variability of measurement results < 1% for one setup
 </script>
+	  </section>
+	  <section data-markdown data-state="normal">
+<script type="text/template">
+# Module Compression: Effect on Disk Usage
+## For kernel-default, x86_64
+
+|                 | # modules | rpm size | modules  | initramfs (xz)|
+|:----------------|----------:|---------:|---------:|----------:|
+| SLE15-SP2       |      2061 |      55M |    170M  | 12M |
+| SLE15-SP3 (xz)  |      2165 |      67M |     35M  | 15M |
+| SLE15-SP3 (zst) |      2165 |      79M |     47M  | 18M |
+
+* `zstd` saves 123MiB (72%) of disk space used for modules, `xz` 135MiB (79%)
+* **Package** and **initramfs** size is smallest for uncompressed modules
+* **Total** additional disk space `zstd` vs. `xz`: **~17 MiB**
+
+<p class="footnote">
+Note that the rpm <tt>%{size}</tt> property of SUSE kernel
+packages is incorrect because of the included <tt>%{ghost}</tt> files.</p>
+  
+
+<!--  | TW 2109 (xz)    |      4706 |     107M |     78M  | 41M (17M) | -->
+</script>
+
 	  </section>
 	</section>
       </div>
