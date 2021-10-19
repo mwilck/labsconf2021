@@ -307,9 +307,8 @@ For all installed kernels:
 	    <div class="multicol">
 	      <div class="col">
 		<ol>
-		  <li class="fragment" data-fragment-index="1">
-		    SLED > SLES, Leap > SLED;
-		    Performance deteriorates with SP3 because of <strong>xz</strong>
+		  <li>
+		    SLES < SLED < Leap, SP2 < SP3
 		  </li>
 		  <li class="fragment" data-fragment-index="2">
 		    Accelerated lsinitrd
@@ -321,25 +320,25 @@ For all installed kernels:
 		    zstd-compressed modules + 3.
 		  </li>
 		  <li class="fragment" data-fragment-index="5">
-		    zstd for initramfs & modules + 2.
+		    (zstd instead of reflinks + 3.)
 		  </li>
 		  <li class="fragment" data-fragment-index="6">
-		    new kernel scriptlets + 4.
+		    <tt>%posttrans</tt> for subpkgs + 4.
 		  </li>
 		  <li class="fragment" data-fragment-index="7">
-		    Initramfs in <tt>%possttrans</tt> + 5.
+		    <tt>%posttrans</tt> for base pkg + 6.
 		  </li>
 		  <li class="fragment" data-fragment-index="8">
-		    Incremental depmod + 6.
+		    Incremental depmod + 7.
 		  </li>
 		  <li class="fragment" data-fragment-index="9">
-		    Parallelization + 7.
+		    Parallelization + 8.
 		  </li>
 		</ul>
 	      </div>
 	      <div class="col" style="flex-grow: 1.6;">
 		<div class="r-stack">
-		  <img class="fragment" data-fragment-index="1" src="images/kernel-inst-00.svg"/>
+		  <img src="images/kernel-inst-00.svg"/>
 		  <img class="fragment" data-fragment-index="2" src="images/kernel-inst-01.svg"/>
 		  <img class="fragment" data-fragment-index="3" src="images/kernel-inst-02.svg"/>
 		  <img class="fragment" data-fragment-index="4" src="images/kernel-inst-03.svg"/>
@@ -360,9 +359,8 @@ For all installed kernels:
 	    <div class="multicol">
 	      <div class="col">
 		<ol>
-		  <li class="fragment" data-fragment-index="1">
-		    SLED > SLES, Leap > SLED; 
-		    Performance deteriorates with SP3
+		  <li>
+		    SLES < SLED < Leap, SP2 < SP3
 		  </li>
 		  <li class="fragment" data-fragment-index="2">
 		    Accelerated lsinitrd
@@ -374,25 +372,25 @@ For all installed kernels:
 		    zstd-compressed modules + 3.
 		  </li>
 		  <li class="fragment" data-fragment-index="5">
-		    zstd for initramfs & modules + 2.
+		    (zstd instead of reflinks + 3.)
 		  </li>
 		  <li class="fragment" data-fragment-index="6">
-		    new kernel scriptlets + 4.
+		    <tt>%posttrans</tt> for subpkgs + 4.
 		  </li>
 		  <li class="fragment" data-fragment-index="7">
-		    Initramfs in <tt>%possttrans</tt> + 5.
+		    <tt>%posttrans</tt> for base pkg + 6.
 		  </li>
 		  <li class="fragment" data-fragment-index="8">
-		    Incremental depmod + 6.
+		    Incremental depmod + 7.
 		  </li>
 		  <li class="fragment" data-fragment-index="9">
-		    Parallelization + 7.
+		    Parallelization + 8.
 		  </li>
 		</ul>
 	      </div>
 	      <div class="col" style="flex-grow: 1.6;">
 		<div class="r-stack">
-		  <img class="fragment" data-fragment-index="1" src="images/KMP-inst-00.svg"/>
+		  <img src="images/KMP-inst-00.svg"/>
 		  <img class="fragment" data-fragment-index="2" src="images/KMP-inst-01.svg"/>
 		  <img class="fragment" data-fragment-index="3" src="images/KMP-inst-02.svg"/>
 		  <img class="fragment" data-fragment-index="4" src="images/KMP-inst-03.svg"/>
