@@ -195,20 +195,24 @@ packages is incorrect because of the included <tt>%{ghost}</tt> files.
 ### Booting
 
 A kernel typically loads between 2MiB and 20MiB of modules during boot.
+
 This is loaded in fragments of a second on any decent computer.
 		</div>
-		<div class="col" data-markdown>
+		<div class="col fragment" data-markdown>
 ### Building
 
 Time required for module compression in OBS is decreased from ~30s to
-~5s. This is negligble compared to the time spent during the actual
-build, signing, and the antivirus check.
+~5s.
+
+This is negligble compared to the total kernel build time.
 		</div>
-		<div class="col" data-markdown>
+		<div class="col fragment" data-markdown>
 ### Other
 
 The runtime of `depmod` is strongly affected by module compression.
-Does this matter? We will see ...
+Does this matter?
+
+We will see ...
 		</div>
 	      </div>
 	    </section>
