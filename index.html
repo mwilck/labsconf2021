@@ -19,14 +19,14 @@
     <div class="reveal">
       <div class="slides">
 	<section>
-	  <section class="cover" data-state="cover-alternate" id="cover-page-alternate">
+	  <section class="cover" data-timing="30" data-state="cover-alternate" id="cover-page-alternate">
 	    <div class="date-location">22 October 2021</div>
 	    <div class="title">
 	      <h1>Tuning Initramfs Generation and Kernel Updates</h1>
 	      <h2>Martin Wilck, David Disseldorp, SUSE Labs</h2>
 	    </div>
 	  </section>
-	  <section data-markdown data-state="normal toc" class="toc">
+	  <section data-markdown data-timing="45" data-state="normal toc" class="toc">
 	    # Agenda
 
 	    1. Compression Algorithms: Speed and Efficiency (Martin)
@@ -39,7 +39,7 @@
 	    3. Using cpio-reflinks for Initramfs images (David)
 	    > In-depth discussion of the new approach for storing initramfs images
 	  </section>
-	  <section data-state="normal">
+	  <section data-timing="75" data-state="normal"> <!-- 150 -->
 	    <h1>Are you a Leap 15.3 user?</h1>
 	    <div class="multicol">
 	      <div class="col" style="flex-grow: 1.4">
@@ -69,8 +69,9 @@
 	  </section>
 	</section>
 
-	<section>
-	  <section data-state="divider" id="divider" class="divider">
+	<section data-timing="0">
+	  <section data-timing="30" data-state="divider" id="divider"
+	  class="divider"> <!-- 180 -->
 	    <h1>Compression Algorithms: Speed and Efficiency</h1>
 	    <a href="https://pixahive.com/photo/the-vintage/">
 	      <img alt="the vintage" src="images/the-vintage-115544-pixahive-1024x768.jpg"
@@ -79,7 +80,7 @@
 	    </a>
 	  </section>
 
-	  <section data-state="normal">
+	  <section data-timing="60" data-state="normal"> <!-- 240 -->
 	    <h1>Compression: Initramfs and Kernel Modules</h1>
 	    <div class="multicol">
 	      <div class="col" data-markdown>
@@ -106,7 +107,7 @@
 	    </div>
 	  </section>
 
-	  <section data-state="normal">
+	  <section data-timing="120" data-state="normal"> <!-- 360 -->
 	    <h1>Initramfs Compression</h1>
 	    <h2>Measurement on 20 different systems</h2>
 
@@ -125,22 +126,23 @@
 	    </div>
 	  </section>
 
-	  <section data-markdown data-state="normal">
-	      # Switch the default initramfs compression to zstd!
+	  <section data-timing="60" data-markdown data-state="normal">  <!-- 420 -->
+	      <script type="text/template">
+# Switch the default initramfs compression to zstd!
 
-	      * Recommended options: `zstd -T0 -3` (the default)
-	      * **Cost:** ~2MiB disk space
-	      * **Gain:** ~3s per initramfs build, 10-20x faster decompression time
-	      * This agrees with expectations based on [previous studies](https://engineering.fb.com/2016/08/31/core-data/smaller-and-faster-data-compression-with-zstandard/)
-	      * **zstd** scales well and achieves consistent results with
-	      multithreading
+* Recommended options: `zstd -T0 -3` (the default)
+* **Cost:** ~2MiB disk space
+* **Gain:** ~3s per initramfs build, 10-20x faster decompression time
+* This agrees with expectations based on [previous studies](https://engineering.fb.com/2016/08/31/core-data/smaller-and-faster-data-compression-with-zstandard/)
+* **zstd** scales well and achieves consistent results with
+multithreading
 
-	      CoW reflinks (David's topic) may be even better, but aren't
-	      always available  *(stay awake)* !
+CoW reflinks (David's topic) may be even better, but aren't
+always available  *(stay awake)* !
             </script>
 	  </section>
 
-	  <section data-state="normal">
+	  <section data-timing="60" data-state="normal"> <!-- 480 -->
 	    <h1>Compression: Initramfs and Kernel Modules</h1>
 	    <div class="multicol">
 	      <div class="col" data-markdown>
@@ -167,7 +169,9 @@
 	    </div>
 	  </section>
 
-	  <section data-markdown data-state="normal"data-separator-notes="^Note:">
+	  <section data-markdown data-timing="90" data-state="normal"
+		   data-separator-notes="^Note:">
+	    <!-- 570 -->
 <script type="text/template">
 # Module Compression: Effect on Disk Usage
 ## For kernel-default, x86_64
@@ -186,7 +190,7 @@ packages is incorrect because of the included <tt>%{ghost}</tt> files.
 </script>
 
 	  </section>
-	  <section data-state="normal">
+	  <section data-state="normal" data-timing="60"><!-- 630 -->
 	    <h1>Module Compression: Effect on Speed</h1>
 	      <div class="multicol">
 		<div class="col"  data-markdown>
@@ -218,7 +222,7 @@ We will see ...
 
 
 	<section>
-	  <section data-state="divider" class="divider" id="divider">
+	  <section data-state="divider" class="divider" id="divider" data-timing="30"><!--690-->
 	    <h1>Profiling Installation of Kernel and KMPs</h1>
 	    <a href="https://pixabay.com/de/photos/vw-vw-k%c3%a4fer-volkswagen-k%c3%a4fer-4024868/">
 	      <img alt="Building to Build Framework" src="images/vw-4024868_1280.jpg"
@@ -226,7 +230,7 @@ We will see ...
 		   href="https://pixabay.com/de/photos/vw-vw-k%c3%a4fer-volkswagen-k%c3%a4fer-4024868/"/>
 	    </a>
 	  </section>
-	  <section data-state="normal">
+	  <section data-state="normal" data-timing="120"><!--810-->
 	    <h1>What Is <tt>weak-modules2</tt> …</h1>
 	    <h2>… and why does it run so long?</h2>
 	      <div class="multicol">
@@ -245,7 +249,7 @@ Similar for kernel subpackages (`-extra`)
 		</div>
 	      </div>
 	  </section>
-	  <section data-state="normal">
+	  <section data-state="normal" data-timing="90"><!-- 900 -->
 	    <h1>What Is <tt>weak-modules2</tt> …</h1>
 	    <h2>… and why does it run so long?</h2>
 	      <div class="multicol">
@@ -265,7 +269,7 @@ For all installed kernels:
 		</div>
 	      </div>
 	  </section>
-	  <section data-state="normal">
+	  <section data-state="normal" data-timing="90"><!-- 990 -->
 	    <h1>Optimization of the Installation Process</h1>
 	    <ul>
 	      <li class="fragment" data-fragment-index="1">
@@ -302,7 +306,7 @@ For all installed kernels:
 	</section>
 
 	<section>
-	  <section data-state="normal">
+	  <section data-state="normal" data-timing="120"><!-- 1110 -->
 	    <h1>Kernel Installation with KMPs</h1>
 	    <div class="multicol">
 	      <div class="col">
@@ -354,7 +358,7 @@ For all installed kernels:
 	</section>
 
 	<section>
-	  <section data-state="normal">
+	  <section data-state="normal" data-timing="120"><!-- 1230 -->
 	    <h1>KMP Installation</h1>
 	    <div class="multicol">
 	      <div class="col">
@@ -405,7 +409,8 @@ For all installed kernels:
 	  </section>
 	</section>
         <section>
-          <section data-markdown data-state="normal"data-separator-notes="^Note:">
+          <section data-markdown data-state="normal"
+		  data-separator-notes="^Note:"  data-timing="60"><!-- 1290 -->
 <script type="text/template">
 # Optimizing Kernel and KMP Installation: Summary
 
