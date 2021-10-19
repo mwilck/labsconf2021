@@ -189,17 +189,14 @@ Does this matter? We will see ...
 	    </a>
 	  </section>
 	  <section data-state="normal">
-	    <h1>Some Background about weak-modules2</h1>
-	    <p><tt>weak-modules2</tt> is always involved if a package
-	      with kernel modules is installed or removed.</p>
+	    <h1>What Does <tt>weak-modules2</tt>?</h1>
 	      <div class="multicol">
 		<div class="col"  data-markdown>
 ### Kernel installation / update
 
 1. Call `depmod`
 2. If KMPs are installed, for each KMP:
-   - check KABI compatibility and create `weak-modules`
-     symlinks as appropriate. This requires calling `depmod`.
+   - check KABI compatibility (calling `depmod`) and create symlinks under `weak-modules/`
 3. Call `dracut` to rebuild the initramfs.
 
 Similar for "pseudo-KMPs" and kernel subpackages (`-extra`, `-optional`)
@@ -209,9 +206,9 @@ Similar for "pseudo-KMPs" and kernel subpackages (`-extra`, `-optional`)
 
 For all installed kernels:
 1. Check if the KMP being installed replaces an existing one
-2. Attempt replacement or addition, check KABI compatibility (requires
-`depmod`)
-3. Add `weak-modules` symlinks as appropriate
+2. Attempt replacement or addition, check KABI compatibility with
+`depmod`
+3. Add symlinks under `weak-modules/`
 4. Run `depmod`
 5. If modules in Initramfs are affected (`lsinitrd`), schedule Initramfs rebuild
 		</div>
