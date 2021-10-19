@@ -82,30 +82,28 @@
 	  </section>
 
 	  <section data-state="normal">
-	    <h1>Module and Initramfs Compression</h1>
+	    <h1>Compression: Initramfs and Kernel Modules</h1>
 	    <div class="multicol">
-	      <div class="col"  data-markdown>
+	      <div class="col" data-markdown>
 		## Initramfs Compression
 
-		* **Compress:** when the initramfs is built
-		* **Uncompress:** once during early boot
+		* **xz** used since SLE12
+		* **zstd** supported with kernel v5.9, `dracut` 054
+		* **zstd** will be default in SLE15-SP4
 		* **Affects** size of initramfs image
-		* **xz** compression used since SLE12
-		* **zstd** supported with kernel v5.9 (`CONFIG_RD_ZSTD`),
-		`dracut` 054 and later
-		* default in SLE15-SP4 (SLE-20248)
+		* **Compression speed** matters for initramfs build
+		* **Uncompression speed:** matters during early boot
 
 	      </div>
-	      <div class="col" data-markdown>
-		## Module Compresion
+	      <div class="col" style="visibility: hidden" data-markdown>
+		## Module Compression
 
-		* **Compress:** when the kernel is built
-		* **Uncompress:** when modules are read
-		* **Affects** kernel size (package & installed)
-		* **xz** supported with `kmod` 3, kernel v3.18
-		  * **SUSE:** in SLE15-SP3 / Leap 15.3, TW
+		* **xz** used in SLE15-SP3 / Leap 15.3 and TW
 		* **zstd** supported with `kmod` 28, kernel v5.13
-		* Changes in other packages required (e.g. `rpm-config-SUSE`)
+		* **zstd** planned for SLE15-SP4 (?)
+		* **Affects** kernel size (package & installed)
+		* **Compression speed** matters during kernel build
+		* **Uncompression speed** matters when modules are read
 	      </div>
 	    </div>
 	  </section>
@@ -140,6 +138,33 @@
 	      * Recommended options `zstd -T0 -3` (the default)
 	      * CoW reflinks (Davids topic) may be even better *(stay awake!)*
             </script>
+	  </section>
+
+	  <section data-state="normal">
+	    <h1>Compression: Initramfs and Kernel Modules</h1>
+	    <div class="multicol">
+	      <div class="col" data-markdown>
+		## Initramfs Compression
+
+		* **xz** used since SLE12
+		* **zstd** supported with kernel v5.9, `dracut` 054
+		* **zstd** will be default in SLE15-SP4
+		* **Affects** size of initramfs image
+		* **Compression speed** matters for initramfs build
+		* **Uncompression speed** matters during early boot
+
+	      </div>
+	      <div class="col fragment" data-markdown>
+		## Module Compression
+
+		* **xz** used in SLE15-SP3 / Leap 15.3 and TW
+		* **zstd** supported with `kmod` 28, kernel v5.13
+		* **zstd** planned for SLE15-SP4 (?)
+		* **Affects** kernel size (package & installed)
+		* **Compression speed** matters for kernel build
+		* **Uncompression speed** matters when modules are read
+	      </div>
+	    </div>
 	  </section>
 
 	  <section data-markdown data-state="normal">
