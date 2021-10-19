@@ -17,10 +17,9 @@
 
 
 <!-- .slide: data-state="normal" id="reflinks-caveats" data-timing="20s" data-menu-title="Reflinks Caveats" -->
-# Reflink Restrictions and Limitations
+# Reflinks: Restrictions and Limitations
 
 *   Btrfs or XFS filesystems only
-    *   Bootloader must be capable of reading shared extents
 *   cpio archiver must perform reflink aware file I/O
     *   `copy_file_range()` or `FICLONERANGE`
 *   Sensitive to alignment
@@ -29,8 +28,18 @@
 *   Causes significant fragmentation
 
 
+<!-- .slide: data-state="normal" id="reflinks-boot" data-timing="20s" data-menu-title="Reflinks Boot" -->
+# Reflinks: Boot Considerations
+
+*   Bootloader must be capable of reading dracut-cpio initramfs archives
+    *   GRUB Btrfs broken by gaps between extents (fix from Qu)
+*   Kernel cpio decompression can be avoided
+*   Large and fragmented initramfs images may outweigh performance gains
+*   Patchset: disable kernel `INITRAMFS_PRESERVE_MTIME`
+
+
 <!-- .slide: data-state="normal" id="reflinks-impl1" data-timing="20s" data-menu-title="Reflinks Implementation 1" -->
-# Implementation - GNU cpio
+# Archiver Implementation: GNU cpio
 
 *   First implementation with help from Luis Henriques
 *   `copy_file_range()` in copy-out code path
@@ -41,7 +50,7 @@
 
 
 <!-- .slide: data-state="normal" id="reflinks-impl2" data-timing="20s" data-menu-title="Reflinks Implementation 2" -->
-# Implementation - dracut-cpio
+# Archiver Implementation: dracut-cpio
 
 *   From-scratch cpio archiver written in Rust
 *   Why?
@@ -87,7 +96,21 @@
 | QEMU boot time: kernel to /init  |   2373ms (ref) |  950.9ms (-59.92%) |  859.5ms (-63.78%) |
 | **initramfs `fiemap` data**      |                |                    |                    |
 |                      total bytes | 14675968 (ref) | 16158720 (+10.10%) | 34689024 (+136.4%) |
-|            shared (deduplicated) |        0 (ref) |        0 (±0.00%) |           26525696 |
+|            shared (deduplicated) |        0 (ref) |         0 (±0.00%) |           26525696 |
 |                        exclusive | 14675968 (ref) | 16158720 (+10.10%) |  8163328 (-44.37%) |
 
 
+<!-- .slide: data-state="normal" id="recommendations" data-timing="20s" data-menu-title="Recommendations" -->
+# Recommendations
+
+Initramfs images:
+
+*   Reflink cpio archives, provided Btrfs or XFS requirements are met
+*   zstd compress archives if reflinks aren't available
+*   Disable initramfs modification time preservation
+
+Kernel package updates:
+
+*   Switch module compression to zstd
+*   Enable "incremental" mode for depmod
+*   Avoid duplicate initramfs rebuilds
