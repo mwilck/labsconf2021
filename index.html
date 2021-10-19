@@ -248,26 +248,6 @@ For all installed kernels:
 	      </li>
 	    </ul>
 	  </section>
-	  <section data-state="normal" data-markdown>
-<script type="text/template">
-# Test Procedure for Optimizations
-
-* Virtual machines set up on decent storage (LV on PCIe NVMe,
-  `cache=none`)
-* Use **btrfs** snapshots and rollbacks to ensure consistent startup
-conditions
-* **Profiling:**
-  - pipe command output into `logger`
-  - Use `journalctl` to retrieve the output messages with
-    precise time stamps, parse output with a python script
-* **Test step sequence:**
-    - install update kernel (base, -extra and -optional if available);
-    - install two KMPs, one required for initramfs;
-    - install a user space package requiring initramfs rebuild;
-    - install anothe update kernel.
-* **Validation:** Variability of measurement results < 1% for one setup
-</script>
-	  </section>
 	</section>
 
 	<section>
@@ -416,6 +396,31 @@ conditions
                  data-separator-vertical="^\n\n"
                  data-separator-notes="^Note:">
         </section>
+	<section>
+	  <section data-state="divider" class="divider" id="divider">
+	    <h1>Backup Slides</h1>
+	  </section>
+	  <section data-state="normal" data-markdown>
+<script type="text/template">
+# Test Procedure for Optimizations
+
+* Virtual machines set up on decent storage (LV on PCIe NVMe,
+  `cache=none`)
+* Use **btrfs** snapshots and rollbacks to ensure consistent startup
+conditions
+* **Profiling:**
+  - pipe command output into `logger`
+  - Use `journalctl` to retrieve the output messages with
+    precise time stamps, parse output with a python script
+* **Test step sequence:**
+    - install update kernel (base, -extra and -optional if available);
+    - install two KMPs, one required for initramfs;
+    - install a user space package requiring initramfs rebuild;
+    - install anothe update kernel.
+* **Validation:** Variability of measurement results < 1% for one setup
+</script>
+	  </section>
+	</section>
       </div>
     </div>
 
