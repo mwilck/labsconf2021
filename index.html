@@ -19,32 +19,31 @@
     <div class="reveal">
       <div class="slides">
 	<section>
-	  <section class="cover" data-state="cover-alternate" id="cover-page-alternate">
+	  <section class="cover" data-timing="30" data-state="cover-alternate" id="cover-page-alternate">
 	    <div class="date-location">22 October 2021</div>
 	    <div class="title">
 	      <h1>Tuning Initramfs Generation and Kernel Updates</h1>
 	      <h2>Martin Wilck, David Disseldorp, SUSE Labs</h2>
 	    </div>
 	  </section>
-	  <section data-markdown data-state="normal toc" class="toc">
+	  <section data-markdown data-timing="45" data-state="normal toc" class="toc">
 	    # Agenda
 
 	    1. Compression Algorithms: Speed and Efficiency (Martin)
-	    > Comparing `xz` and `zstd` compression for initramfs images and
-	    kernel modules, respectively
+	    > Comparing `xz` and `zstd` for initramfs images and kernel modules
 
-	    2. Tuning Installation of Kernel and KMPs (Martin)
-	    > Profiling installation of kernel packages and kernel module
-	      packages (KMPs), and assessing the effect of various
-	      improvements
+	    2. Profiling Installation of Kernel and KMPs (Martin)
+	    > Assessing the effect of current and future optimizations
 
 	    3. Using cpio-reflinks for Initramfs images (David)
-	    > In-depth discussion of the new approach for storing initramfs images
+	    > In-depth discussion of CoW reflinking for initramfs images
+
+            Slides: https://mwilck.github.io/labsconf2021
 	  </section>
-	  <section data-state="normal">
+	  <section data-timing="75" data-state="normal"> <!-- 150 -->
 	    <h1>Are you a Leap 15.3 user?</h1>
 	    <div class="multicol">
-	      <div class="col">
+	      <div class="col" style="flex-grow: 1.4">
 		<!-- can't use "data-autoplay" here, because every fragment
 		activation resets the video. "data-ignore" doesn't help,
 		either. -->
@@ -71,8 +70,9 @@
 	  </section>
 	</section>
 
-	<section>
-	  <section data-state="divider" id="divider" class="divider">
+	<section data-timing="0">
+	  <section data-timing="30" data-state="divider" id="divider"
+	  class="divider"> <!-- 180 -->
 	    <h1>Compression Algorithms: Speed and Efficiency</h1>
 	    <a href="https://pixahive.com/photo/the-vintage/">
 	      <img alt="the vintage" src="images/the-vintage-115544-pixahive-1024x768.jpg"
@@ -81,44 +81,38 @@
 	    </a>
 	  </section>
 
-	  <section data-state="normal">
-	    <h1>Module and Initramfs Compression</h1>
+	  <section data-timing="60" data-state="normal"> <!-- 240 -->
+	    <h1>Compression: Initramfs and Kernel Modules</h1>
 	    <div class="multicol">
-	      <div class="col"  data-markdown>
+	      <div class="col" data-markdown>
 		## Initramfs Compression
 
-		* **Compress:** when the initramfs is built
-		* **Uncompress:** once during early boot
-		* **Affects** size of initramfs image
-		* **xz** compression used since SLE12
-		* **zstd** supported with kernel v5.9 (`CONFIG_RD_ZSTD`),
-		`dracut` 054 and later
-		* default in SLE15-SP4 (SLE-20248)
+		* **xz** used since SLE12
+		* **zstd** supported with kernel v5.9, `dracut` 054
+		* **zstd** will be default in SLE15-SP4
 
 	      </div>
-	      <div class="col" data-markdown>
-		## Module Compresion
+	      <div class="col" style="visibility: hidden" data-markdown>
+		## Module Compression
 
-		* **Compress:** when the kernel is built
-		* **Uncompress:** when modules are read
-		* **Affects** kernel size (package & installed)
-		* **xz** supported with `kmod` 3, kernel v3.18
-		  * **SUSE:** in SLE15-SP3 / Leap 15.3, TW
+		* **xz** used in SLE15-SP3 / Leap 15.3 and TW
 		* **zstd** supported with `kmod` 28, kernel v5.13
-		* Changes in other packages required (e.g. `rpm-config-SUSE`)
+		* **zstd** planned for SLE15-SP4 (?)
 	      </div>
 	    </div>
 	  </section>
 
-	  <section data-state="normal">
-	    <h1>Initramfs Compression: Study</h1>
+	  <section data-timing="120" data-state="normal"> <!-- 360 -->
+	    <h1>Initramfs Compression</h1>
+	    <h2>Measurement on 20 different systems</h2>
 
-	    <p><strong>20 systems:</strong>
-	      <tt>x86_64</tt>, <tt>ppc64le</tt>, <tt>aarch64</tt>, <tt>s390x</tt>,
-	      virtual and bare metal, Operating Systems: SLE15-SP2/SP3,
-	      Tumbleweed. The size of the <strong>uncompressed</strong>
-	      initramfs was 40 MiB (±7MiB) on average.
-	    </p>
+	    <ul>
+	      <li>payload &ndash; uncompressed initramfs &ndash; varies
+	      between systems, size 40(&plusmn;7)MiB</li>
+	      <li><tt>x86_64</tt>, <tt>ppc64le</tt>, <tt>aarch64</tt>, <tt>s390x</tt>,
+		virtual and bare metal, single-board to large server</li>
+	      <li>SLE15-SP2/SP3, Tumbleweed</li>
+	    </ul>
 	    <div class="multicol">
 	      <div class="col">
 		  <img class="fragment" src="images/compression-mb.svg"/>
@@ -127,23 +121,348 @@
 		  <img class="fragment" src="images/compression-time.svg"/>
 	      </div>
 	    </div>
+	    <aside class="notes">"More is better", explain rows / bars /
+	      stddev, same for 2nd image. Don't speak about zstd -15 much!
+	    </aside>
 	  </section>
 
-	  <section data-markdown data-state="normal">
-	      # Initramfs Compression: Outcome
-	      ### Switch the default initramfs compression to zstd!
+	  <section data-timing="60" data-markdown data-state="normal">  <!-- 420 -->
+	      <script type="text/template">
+# Switch the default initramfs compression to zstd!
 
-	      * Consistent test results over a large variety of test systems
-	      * This agrees with expectations based on previous studies about [Zstandard](https://engineering.fb.com/2016/08/31/core-data/smaller-and-faster-data-compression-with-zstandard/)
-	      * **Cost:** ~2MiB disk space
-	      * **Gain:** ~3s per initramfs build
-	        * 10-20x faster decompression time (typically 1s ⇒ 0.07s)
-	      * Achieves consistent results with multithreading, scales well
-	      * Recommended options (the default): `zstd -T0 -3`
-	      * CoW reflinks (Davids topic) may be even better *(stay awake!)*
+* Recommended options: `zstd -T0 -3`
+  * **zstd** scales well and achieves consistent results with multithreading
+* **Cost:** ~2MiB disk space
+* **Gain:** ~3s per initramfs build, 10-20x faster decompression speed
+* This agrees with expectations based on [previous studies](https://engineering.fb.com/2016/08/31/core-data/smaller-and-faster-data-compression-with-zstandard/)
+
+CoW reflinks (David&apos;s topic) may be even better *(stay awake)* !
             </script>
 	  </section>
 
+	  <section data-timing="60" data-state="normal"> <!-- 480 -->
+	    <h1>Compression: Initramfs and Kernel Modules</h1>
+	    <div class="multicol">
+	      <div class="col" data-markdown>
+		## Initramfs Compression
+
+		* **xz** used since SLE12
+		* **zstd** supported with kernel v5.9, `dracut` 054
+		* **zstd** will be default in SLE15-SP4
+
+	      </div>
+	      <div class="col fragment" data-markdown>
+		## Module Compression
+
+		* **xz** used in SLE15-SP3 / Leap 15.3 and TW
+		* **zstd** supported with `kmod` 28, kernel v5.13
+		* **zstd** planned for SLE15-SP4 (?)
+	      </div>
+	    </div>
+	  </section>
+
+	  <section data-markdown data-timing="90" data-state="normal"
+		   data-separator-notes="^Note:">
+	    <!-- 570 -->
+<script type="text/template">
+# Module Compression: Effect on Disk Usage
+## For kernel-default, x86_64
+
+|                          | # modules | rpm size  |    modules |
+|:-------------------------|:----------|:----------|:-----------|
+| SLE15-SP2 (uncompressed) |      2061 | 55M       |       170M |
+| SLE15-SP3 (xz)           |      2165 | 67M (+12) | 35M (-135) |
+| SLE15-SP3 (zst)          |      2165 | 79M (+22) | 47M (-123) |
+
+Note:
+Total additional disk space `zstd` vs. `xz`: ~17 MiB
+  
+The rpm <tt>%{size}</tt> property of SUSE kernel
+packages is incorrect because of the included <tt>%{ghost}</tt> files.
+  
+</script>
+
+	  </section>
+	  <section data-state="normal" data-timing="60"><!-- 630 -->
+	    <h1>Module Compression: Effect on Speed</h1>
+	      <div class="multicol">
+		<div class="col"  data-markdown>
+### Booting
+
+A kernel typically loads between 2MiB and 20MiB of modules during boot.
+
+This is loaded in fractions of a second on any decent computer.
+		</div>
+		<div class="col fragment" data-markdown>
+### Building
+
+Time required for module compression in OBS is decreased from ~30s to
+~5s.
+
+This is negligble compared to the total kernel build time.
+		</div>
+		<div class="col fragment" data-markdown>
+### Other
+
+The runtime of `depmod` is strongly affected by module compression.
+
+Does this matter?
+
+We will see ...
+		</div>
+	      </div>
+	    </section>
+	</section>
+
+
+	<section>
+	  <section data-state="divider" class="divider" id="divider" data-timing="30"><!--690-->
+	    <h1>Profiling Installation of Kernel and KMPs</h1>
+	    <a href="https://pixabay.com/de/photos/vw-vw-k%c3%a4fer-volkswagen-k%c3%a4fer-4024868/">
+	      <img alt="Building to Build Framework" src="images/vw-4024868_1280.jpg"
+		   title="Bild von Reinhard Thrainer auf Pixabay [Pixabay License]"
+		   href="https://pixabay.com/de/photos/vw-vw-k%c3%a4fer-volkswagen-k%c3%a4fer-4024868/"/>
+	    </a>
+	  </section>
+	  <section data-state="normal" data-timing="120"><!--810-->
+	    <h1>What&apos;s Slowing Down Kernel Installations?</h1>
+	    <h2>Time spent in <tt>weak-modules2</tt></h2>
+	      <div class="multicol">
+		<div class="col"  data-markdown data-separator-notes="^Note:">
+### Kernel installation / update
+
+1. Call `depmod`
+2. If KMPs are installed, for each KMP:
+   - check KABI compatibility (calling `depmod`) and create symlinks under `weak-modules/`
+3. Call `dracut` to rebuild the initramfs.
+
+Similar for kernel subpackages (`-extra`)
+		</div>
+		<div class="col" style="flex-grow: 1.0">
+		  <img src="images/kernel-inst-00.svg"/>
+		</div>
+	      </div>
+	      <aside class="notes">
+Refer to introduction.
+Explain image first, less is better, explain colors. dracut other:
+e.g. startup, syncing.
+	      </aside>
+	  </section>
+	  <section data-state="normal" data-timing="90"><!-- 900 -->
+	    <h1>What&apos;s Slowing Down KMP Installations?</h1>
+	    <h2>Time spent in <tt>weak-modules2</tt></h2>
+	      <div class="multicol">
+		<div class="col"  data-markdown>
+### KMP installation
+
+For all installed kernels:
+1. Check if the KMP being installed replaces an existing one
+2. Attempt replacement or addition, check KABI compatibility with
+`depmod`
+3. Add symlinks under `weak-modules/`
+4. Run `depmod`
+5. If modules in Initramfs are affected (`lsinitrd`), schedule Initramfs rebuild
+		</div>
+		<div class="col" style="flex-grow: 1.0">
+		  <img src="images/KMP-inst-00.svg"/>
+		</div>
+	      </div>
+	  </section>
+	  <section data-state="normal" data-timing="90"><!-- 990 -->
+	    <h1>Optimization of the Installation Process</h1>
+	    <ul>
+	      <li class="fragment" data-fragment-index="1">
+		Replace dracut&apos;s slow <strong>lsinitrd</strong> program with a
+		faster one;
+	      </li>
+	      <li class="fragment" data-fragment-index="2">
+		For <strong>initramfs</strong>, use <strong>cpio reflinking</strong> for the initramfs when
+		possible, <strong>zstd</strong> otherwise;
+	      </li>
+	      <li class="fragment" data-fragment-index="3">
+		Use <strong>zstd</strong> compression for <strong>kernel modules</strong>;
+	      </li>
+	      <li class="fragment" data-fragment-index="4">
+		<strong>Postpone</strong> initramfs building from <tt>%post</tt>
+		to <tt>%posttrans</tt>
+		<ul>
+		  <li>for kernel <strong>subpackages</strong> like <tt>kernel-default-extra</tt> only,</li>
+		  <li>also for <strong>base packages</strong> like <tt>kernel-default</tt>;</li>
+		</ul>
+	      </li>
+	      <li class="fragment" data-fragment-index="5">
+		<strong>Incremental depmod</strong>: 
+		Avoid scanning every module, always. Patch set in the works;
+	      </li>
+	      <li class="fragment" data-fragment-index="6">
+		Apply <strong>parallelization</strong>:
+		<ul>
+		  <li>dracut invocation in <tt>%posttrans</tt>,</li>
+		  <li>KABI check in <tt>weak-modules2</tt>.</li>
+		</ul>
+	      </li>
+	      <li class="fragment" data-fragment-index="7">
+		Optimize <strong>dracut</strong>… (not today!).
+	      </li>
+	    </ul>
+	  </section>
+	</section>
+
+	<section>
+	  <section data-state="normal" data-timing="120"><!-- 1110 -->
+	    <h1>Kernel Installation with KMPs</h1>
+	    <div class="multicol">
+	      <div class="col">
+		<ol start="0">
+		  <li>
+		    Current state of affairs
+		  </li>
+		  <li class="fragment" data-fragment-index="2">
+		    Accelerated lsinitrd
+		  </li>
+		  <li class="fragment" data-fragment-index="3">
+		    cpio reflinking + 1.
+		  </li>
+		  <li class="fragment" data-fragment-index="4">
+		    zstd-compressed modules + 2.
+		  </li>
+		  <li class="fragment" data-fragment-index="5">
+		    (zstd instead of reflinks + 2.)
+		  </li>
+		  <li class="fragment" data-fragment-index="6">
+		    <tt>%posttrans</tt> for subpkgs + 3.
+		  </li>
+		  <li class="fragment" data-fragment-index="7">
+		    <tt>%posttrans</tt> for base pkg + 5.
+		  </li>
+		  <li class="fragment" data-fragment-index="8">
+		    Incremental depmod + 6.
+		  </li>
+		  <li class="fragment" data-fragment-index="9">
+		    Parallelization + 7.
+		  </li>
+		</ul>
+	      </div>
+	      <div class="col" style="flex-grow: 1.6;">
+		<div class="r-stack">
+		  <img src="images/kernel-inst-00.svg"/>
+		  <img class="fragment" data-fragment-index="2" src="images/kernel-inst-01.svg"/>
+		  <img class="fragment" data-fragment-index="3" src="images/kernel-inst-02.svg"/>
+		  <img class="fragment" data-fragment-index="4" src="images/kernel-inst-03.svg"/>
+		  <img class="fragment" data-fragment-index="5" src="images/kernel-inst-04.svg"/>
+		  <img class="fragment" data-fragment-index="6" src="images/kernel-inst-05.svg"/>
+		  <img class="fragment" data-fragment-index="7" src="images/kernel-inst-06.svg"/>
+		  <img class="fragment" data-fragment-index="8" src="images/kernel-inst-07.svg"/>
+		  <img class="fragment" data-fragment-index="9" src="images/kernel-inst-08.svg"/>
+		</div>
+	      </div>
+	    </div>
+	  </section>
+	</section>
+
+	<section>
+	  <section data-state="normal" data-timing="120"><!-- 1230 -->
+	    <h1>KMP Installation</h1>
+	    <div class="multicol">
+	      <div class="col">
+		<ol start="0">
+		  <li>
+		    Current state of affairs
+		  </li>
+		  <li class="fragment" data-fragment-index="2">
+		    Accelerated lsinitrd
+		  </li>
+		  <li class="fragment" data-fragment-index="3">
+		    cpio reflinking + 1.
+		  </li>
+		  <li class="fragment" data-fragment-index="4">
+		    zstd-compressed modules + 2.
+		  </li>
+		  <li class="fragment" data-fragment-index="5">
+		    (zstd instead of reflinks + 2.)
+		  </li>
+		  <li class="fragment" data-fragment-index="6">
+		    <tt>%posttrans</tt> for subpkgs + 3.
+		  </li>
+		  <li class="fragment" data-fragment-index="7">
+		    <tt>%posttrans</tt> for base pkg + 5.
+		  </li>
+		  <li class="fragment" data-fragment-index="8">
+		    Incremental depmod + 6.
+		  </li>
+		  <li class="fragment" data-fragment-index="9">
+		    Parallelization + 7.
+		  </li>
+		</ul>
+	      </div>
+	      <div class="col" style="flex-grow: 1.6;">
+		<div class="r-stack">
+		  <img src="images/KMP-inst-00.svg"/>
+		  <img class="fragment" data-fragment-index="2" src="images/KMP-inst-01.svg"/>
+		  <img class="fragment" data-fragment-index="3" src="images/KMP-inst-02.svg"/>
+		  <img class="fragment" data-fragment-index="4" src="images/KMP-inst-03.svg"/>
+		  <img class="fragment" data-fragment-index="5" src="images/KMP-inst-04.svg"/>
+		  <img class="fragment" data-fragment-index="6" src="images/KMP-inst-05.svg"/>
+		  <img class="fragment" data-fragment-index="7" src="images/KMP-inst-06.svg"/>
+		  <img class="fragment" data-fragment-index="8" src="images/KMP-inst-07.svg"/>
+		  <img class="fragment" data-fragment-index="9" src="images/KMP-inst-08.svg"/>
+		</div>
+	      </div>
+	    </div>
+	  </section>
+	</section>
+        <section>
+          <section data-markdown data-state="normal"
+		  data-separator-notes="^Note:"  data-timing="60"><!-- 1290 -->
+<script type="text/template">
+# Optimizing Kernel and KMP Installation: Summary
+
+* Deterioration SP2 ⇒ SP3 caused by **depmod** on **xz**-compressed modules
+* Profiling showed multiple bottlenecks
+* Cumulative savings:
+  - Kernel installation: **66s ⇒ 21s**
+  - KMP installation: **100s ⇒ 15s**
+* Efficient initramfs generation is an important factor…
+
+</script>
+	  </section>
+	</section>
+
+        <section data-markdown="markdown/80-reflinks.md"
+                 data-separator="^\n\n\n"
+                 data-separator-vertical="^\n\n"
+                 data-separator-notes="^Note:">
+        </section>
+
+        <section data-markdown="markdown/90-postscript.md"
+                 data-separator="^\n\n\n"
+                 data-separator-vertical="^\n\n"
+                 data-separator-notes="^Note:">
+        </section>
+	<section>
+	  <section data-state="divider" class="divider" id="divider">
+	    <h1>Backup Slides</h1>
+	  </section>
+	  <section data-state="normal" data-markdown>
+<script type="text/template">
+# Test Procedure for Optimizations
+
+* Virtual machines set up on decent storage (LV on PCIe NVMe,
+  `cache=none`)
+* Use **btrfs** snapshots and rollbacks to ensure consistent startup
+conditions
+* **Profiling:**
+  - pipe command output into `logger`
+  - Use `journalctl` to retrieve the output messages with
+    precise time stamps, parse output with a python script
+* **Test step sequence:**
+    - install update kernel (base, -extra and -optional if available);
+    - install two KMPs, one required for initramfs;
+    - install a user space package requiring initramfs rebuild;
+    - install anothe update kernel.
+* **Validation:** Variability of measurement results < 1% for one setup
+</script>
+	  </section>
 	  <section data-markdown data-state="normal">
 <script type="text/template">
 # Module Compression: Effect on Disk Usage
@@ -168,287 +487,7 @@ packages is incorrect because of the included <tt>%{ghost}</tt> files.</p>
 </script>
 
 	  </section>
-	  <section data-state="normal">
-	    <h1>Module Compression: Effect on Speed</h1>
-	      <div class="multicol">
-		<div class="col"  data-markdown>
-### Booting
-
-A kernel typically loads between 2MiB and 20MiB of modules during boot.
-This is loaded in fragments of a second on any decent computer.
-		</div>
-		<div class="col" data-markdown>
-### Building
-
-Time required for module compression in OBS is decreased from ~30s to
-~5s. This is negligble compared to the time spent during the actual
-build, signing, and the antivirus check.
-		</div>
-		<div class="col" data-markdown>
-### Other
-
-The runtime of `depmod` is strongly affected by module compression.
-Does this matter? We will see ...
-		</div>
-	      </div>
-	    </section>
 	</section>
-
-
-	<section>
-  <!--
-	  <section data-state="divider" id="divider">
-	    <h1>Initramfs Building and Installation of Kernel and KMPs</h1>
-	    <a href="https://pixabay.com/photos/building-to-build-framework-1210677/">
-	      <img alt="Building to Build Framework" src="images/building-1210677_1280.jpg"
-		   title="Image by Hands off my tags! Michael Gaida from Pixabay [Pixabay License]"
-		   href="https://pixabay.com/photos/building-to-build-framework-1210677/"/>
-	    </a>
-	  </section>
--->
-	  <section data-state="divider" class="divider" id="divider">
-	    <h1>Tuning Installation of kernel and KMPs</h1>
-	    <a href="https://pixabay.com/de/photos/vw-vw-k%c3%a4fer-volkswagen-k%c3%a4fer-4024868/">
-	      <img alt="Building to Build Framework" src="images/vw-4024868_1280.jpg"
-		   title="Bild von Reinhard Thrainer auf Pixabay [Pixabay License]"
-		   href="https://pixabay.com/de/photos/vw-vw-k%c3%a4fer-volkswagen-k%c3%a4fer-4024868/"/>
-	    </a>
-	  </section>
-	  <section data-state="normal">
-	    <h1>Some Background about weak-modules2</h1>
-	    <p><tt>weak-modules2</tt> is always involved if a package
-	      with kernel modules is installed or removed.</p>
-	      <div class="multicol">
-		<div class="col"  data-markdown>
-### Kernel installation / update
-
-1. Call `depmod`
-2. If KMPs are installed, for each KMP:
-   - check KABI compatibility and create `weak-modules`
-     symlinks as appropriate. This requires calling `depmod`.
-3. Call `dracut` to rebuild the initramfs.
-
-Similar for "pseudo-KMPs" and kernel subpackages (`-extra`, `-optional`)
-		</div>
-		<div class="col" data-markdown>
-### KMP installation
-
-For all installed kernels:
-1. Check if the KMP being installed replaces an existing one
-2. Attempt replacement or addition, check KABI compatibility (requires
-`depmod`)
-3. Add `weak-modules` symlinks as appropriate
-4. Run `depmod`
-5. If modules in Initramfs are affected (`lsinitrd`), schedule Initramfs rebuild
-		</div>
-	      </div>
-	    </section>
-	  <section data-state="normal">
-	    <h1>Opportunities for Optimization</h1>
-	    <ul>
-	      <li class="fragment" data-fragment-index="1">
-		Replace dracut's slow <tt>lsinitrd</tt> program with a
-		simpler, faster one;
-	      </li>
-	      <li class="fragment" data-fragment-index="2">
-		Use <strong>zstd compression</strong> for the initramfs;
-	      </li>
-	      <li class="fragment" data-fragment-index="3">
-		Use <strong>cpio reflinking</strong> for the initramfs;
-	      </li>
-	      <li class="fragment" data-fragment-index="4">
-		Postpone building the initramfs from <tt>%post</tt>
-		to <tt>%posttrans</tt> to avoid building it multiple times.
-		This is simplified by the recent endeavor to outsource
-		the <strong>rpm scriptlets</strong> of kernel packages
-		into separate scripts;
-	      </li>
-	      <li class="fragment" data-fragment-index="5">
-		Avoid running a <tt>depmod</tt> for all modules when just KABI
-		compatibility of a few to-be-added module files needs to be
-		tested. Developed a patch set for <strong>kmod</strong> to
-		achieve this;
-	      </li>
-	      <li class="fragment" data-fragment-index="6">
-		Apply <strong>parallelization</strong> to certain steps:
-		<ul>
-		  <li>dracut invocation in <tt>%posttrans</tt>,</li>
-		  <li>KABI check for multiple kernels;</li>
-		</ul>
-	      </li>
-	      <li class="fragment" data-fragment-index="7">
-		Optimize dracut… (not today!).
-	      </li>
-	    </ul>
-	  </section>
-	  <section data-state="normal" data-markdown>
-<script type="text/template">
-# Test Procedure for Optimizations
-
-* Virtual machines set up on decent storage (LV on PCIe NVMe,
-  `cache=none`)
-* Use **btrfs** snapshots and rollbacks to ensure consistent startup
-conditions
-* **Profiling:**
-  - pipe command output into `logger`
-  - Use `journalctl` to retrieve the output messages with
-    precise time stamps, parse output with a python script
-* **Test step sequence:**
-    - install update kernel (base, -extra and -optional if available);
-    - install two KMPs, one required for initramfs;
-    - install a user space package requiring initramfs rebuild;
-    - install anothe update kernel.
-* **Validation:** Variability of measurement results < 1% for one setup
-</script>
-	  </section>
-	</section>
-
-	<section>
-	  <section data-state="normal">
-	    <h1>Kernel Installation with KMPs</h1>
-	    <div class="multicol">
-	      <div class="col">
-		<ol>
-		  <li class="fragment" data-fragment-index="1">
-		    SLED > SLES, Leap > SLED;
-		    Performance deteriorates with SP3 because of <strong>xz</strong>
-		  </li>
-		  <li class="fragment" data-fragment-index="2">
-		    Accelerated lsinitrd
-		  </li>
-		  <li class="fragment" data-fragment-index="3">
-		    cpio reflinking + 2.
-		  </li>
-		  <li class="fragment" data-fragment-index="4">
-		    zstd-compressed modules + 3.
-		  </li>
-		  <li class="fragment" data-fragment-index="5">
-		    zstd for initramfs & modules + 2.
-		  </li>
-		  <li class="fragment" data-fragment-index="6">
-		    new kernel scriptlets + 4.
-		  </li>
-		  <li class="fragment" data-fragment-index="7">
-		    Initramfs in <tt>%possttrans</tt> + 5.
-		  </li>
-		  <li class="fragment" data-fragment-index="8">
-		    Incremental depmod + 6.
-		  </li>
-		  <li class="fragment" data-fragment-index="9">
-		    Parallelization + 7.
-		  </li>
-		</ul>
-	      </div>
-	      <div class="col" style="flex-grow: 1.6;">
-		<div class="r-stack">
-		  <img class="fragment" data-fragment-index="1" src="images/kernel-inst-00.svg"/>
-		  <img class="fragment" data-fragment-index="2" src="images/kernel-inst-01.svg"/>
-		  <img class="fragment" data-fragment-index="3" src="images/kernel-inst-02.svg"/>
-		  <img class="fragment" data-fragment-index="4" src="images/kernel-inst-03.svg"/>
-		  <img class="fragment" data-fragment-index="5" src="images/kernel-inst-04.svg"/>
-		  <img class="fragment" data-fragment-index="6" src="images/kernel-inst-05.svg"/>
-		  <img class="fragment" data-fragment-index="7" src="images/kernel-inst-06.svg"/>
-		  <img class="fragment" data-fragment-index="8" src="images/kernel-inst-07.svg"/>
-		  <img class="fragment" data-fragment-index="9" src="images/kernel-inst-08.svg"/>
-		</div>
-	      </div>
-	    </div>
-	  </section>
-	</section>
-
-	<section>
-	  <section data-state="normal">
-	    <h1>KMP Installation</h1>
-	    <div class="multicol">
-	      <div class="col">
-		<ol>
-		  <li class="fragment" data-fragment-index="1">
-		    SLED > SLES, Leap > SLED; 
-		    Performance deteriorates with SP3
-		  </li>
-		  <li class="fragment" data-fragment-index="2">
-		    Accelerated lsinitrd
-		  </li>
-		  <li class="fragment" data-fragment-index="3">
-		    cpio reflinking + 2.
-		  </li>
-		  <li class="fragment" data-fragment-index="4">
-		    zstd-compressed modules + 3.
-		  </li>
-		  <li class="fragment" data-fragment-index="5">
-		    zstd for initramfs & modules + 2.
-		  </li>
-		  <li class="fragment" data-fragment-index="6">
-		    new kernel scriptlets + 4.
-		  </li>
-		  <li class="fragment" data-fragment-index="7">
-		    Initramfs in <tt>%possttrans</tt> + 5.
-		  </li>
-		  <li class="fragment" data-fragment-index="8">
-		    Incremental depmod + 6.
-		  </li>
-		  <li class="fragment" data-fragment-index="9">
-		    Parallelization + 7.
-		  </li>
-		</ul>
-	      </div>
-	      <div class="col" style="flex-grow: 1.6;">
-		<div class="r-stack">
-		  <img class="fragment" data-fragment-index="1" src="images/KMP-inst-00.svg"/>
-		  <img class="fragment" data-fragment-index="2" src="images/KMP-inst-01.svg"/>
-		  <img class="fragment" data-fragment-index="3" src="images/KMP-inst-02.svg"/>
-		  <img class="fragment" data-fragment-index="4" src="images/KMP-inst-03.svg"/>
-		  <img class="fragment" data-fragment-index="5" src="images/KMP-inst-04.svg"/>
-		  <img class="fragment" data-fragment-index="6" src="images/KMP-inst-05.svg"/>
-		  <img class="fragment" data-fragment-index="7" src="images/KMP-inst-06.svg"/>
-		  <img class="fragment" data-fragment-index="8" src="images/KMP-inst-07.svg"/>
-		  <img class="fragment" data-fragment-index="9" src="images/KMP-inst-08.svg"/>
-		</div>
-	      </div>
-	    </div>
-	  </section>
-	</section>
-
-	<section>
-	  <section data-state="normal">
-	    <h1>Speeding up Installation: Summary</h1>
-	    <div class="multicol">
-	      <div class="col fragment" data-markdown>
-### Kernel update
-
-<!-- * Leap 15.3 > SLED 15 SP3 > SLES 15 SP3 caused by initramfs generation in --
-  -- `%post` -->
-* Deterioration SP2 ⇒ SP3 caused by **depmod**
-* Using either **zstd or cpio-reflinking for Initramfs** saves ~10s, `zstd` is slightly slower
-* **zstd compression for modules** saves ~16s
-* Initramfs build in `%posttrans` saves ~14s
-* **Overall**, with parallelization: **66s ⇒ 21s**
-	      </div>
-	      <div class="col fragment" data-markdown>
-### KMP installation
-
-* Deterioration SP2 ⇒ SP3 caused by **depmod**
-* **Accellerated lsinitrd** saves ~10s
-* **zstd compression for modules** saves ~40s
-* **Incremental depmod** saves ~17s
-* **Overall**, with parallelization: **100s ⇒ 15s**
-	      </div>
-	    </div>
-	  </section>
-
-	</section>
-
-        <section data-markdown="markdown/80-reflinks.md"
-                 data-separator="^\n\n\n"
-                 data-separator-vertical="^\n\n"
-                 data-separator-notes="^Note:">
-        </section>
-
-        <section data-markdown="markdown/90-postscript.md"
-                 data-separator="^\n\n\n"
-                 data-separator-vertical="^\n\n"
-                 data-separator-notes="^Note:">
-        </section>
       </div>
     </div>
 

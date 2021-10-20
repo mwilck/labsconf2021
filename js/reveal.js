@@ -6,7 +6,7 @@ Reveal.initialize({
     width: 1600,
     height: 900,
 
-    margin: 0.05,
+    margin: 0.01,
 
     controls: true, // press C to toggle
     controlsTutorial: true,
@@ -16,6 +16,7 @@ Reveal.initialize({
     center: false,
 
     defaultTiming: 120,
+    totalTime: 2400,
 
     // theme: "black", // this has no effect apparently, too many SUSE overrides
     transition: 'none', // default/cube/page/concave/zoom/linear/fade/none

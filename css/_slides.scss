@@ -138,11 +138,11 @@
 
     a {
         text-decoration: none;
-        color: $jungle !important;
+        color: $persimon !important;
     }
 
     a:hover {
-        color: $jungle !important;
+        color: $persimon !important;
         text-decoration: underline;
     }
 
@@ -178,7 +178,9 @@
 
             li:before {
                 //vertical-align: middle;
-                content: $list-bullet;
+                content: $list-hyphen;
+		font-weight: 700;
+		color: $jungle;
                 float: left;
                 margin-left: -$bullet-padding;
             }
@@ -187,6 +189,8 @@
             ul, ol {
                 li:before {
                     content: $list-hyphen;
+		    font-weight: 400;
+		    color: $jungle;
                 }
 
 		li {
