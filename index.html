@@ -273,7 +273,7 @@ For all installed kernels:
 	    <ul>
 	      <li class="fragment" data-fragment-index="1">
 		Replace dracut&apos;s slow <strong>lsinitrd</strong> program with a
-		simpler, faster one;
+		faster one;
 	      </li>
 	      <li class="fragment" data-fragment-index="2">
 		For <strong>initramfs</strong>, use <strong>cpio reflinking</strong> for the initramfs when
@@ -284,7 +284,11 @@ For all installed kernels:
 	      </li>
 	      <li class="fragment" data-fragment-index="4">
 		<strong>Postpone</strong> initramfs building from <tt>%post</tt>
-		to <tt>%posttrans</tt>,
+		to <tt>%posttrans</tt>
+		<ul>
+		  <li>for kernel <strong>subpackages</strong> like <tt>kernel-default-extra</tt> only,</li>
+		  <li>also for <strong>base packages</strong> like <tt>kernel-default</tt>;</li>
+		</ul>
 	      </li>
 	      <li class="fragment" data-fragment-index="5">
 		<strong>Incremental depmod</strong>: 
