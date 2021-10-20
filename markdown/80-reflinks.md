@@ -7,7 +7,7 @@
 
 
 <!-- .slide: data-state="normal" id="reflinks-intro" data-timing="20s" data-menu-title="Reflinks Introduction" -->
-# Reflinks
+# Initramfs Reflinks
 
 *   Avoid duplication of cpio archive data
     *   Extent sharing between initramfs source files and cpio archive
@@ -25,11 +25,12 @@
 *   Sensitive to alignment
     *   Complicated by cpio header requirements
 *   Initramfs sources, staging and destination paths must share a mount point
+    *   **See Ludwig's talk: usrmerge and beyond**
 *   Causes significant fragmentation
 
 
 <!-- .slide: data-state="normal" id="reflinks-boot" data-timing="20s" data-menu-title="Reflinks Boot" -->
-# Reflinks: Boot Considerations
+# Reflinks: Boot Time Considerations
 
 *   Bootloader must be capable of reading dracut-cpio initramfs archives
     *   GRUB Btrfs broken by gaps between extents (fix from Qu)
