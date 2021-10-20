@@ -76,29 +76,29 @@
 <!-- .slide: data-state="normal" id="reflinks-perf-btrfs" data-timing="20s" data-menu-title="Reflinks Performance on Btrfs" -->
 # Btrfs Performance
 
-|   **Btrfs**                      |   Dracut `xz`  |    Dracut `zstd`   |    Dracut reflink   |
-|:--------------------------------:|:--------------:|:------------------:|:-------------------:|
-| Dracut runtime                   |  16.809s (ref) |  12.935s (-23.05%) |   10.292s (-38.59%) |
-| QEMU boot time: kernel to /init  |   2361ms (ref) |  951.0ms (-59.71%) |   857.8ms (-63.66%) |
-| **initramfs `fiemap` data**      |                |                    |                     |
-|                      total bytes | 14647296 (ref) | 16191488 (+10.54%) |  34447360 (+135.2%) |
-|            shared (deduplicated) |        0 (ref) |        0 (+-0.00%) | 31309824 (**note**) |
-|                        exclusive | 14647296 (ref) | 16191488 (+10.54%) |  3137536 (**note**) |
+|   **Btrfs**                      | Dracut `xz` | Dracut `zstd` | Dracut reflink |
+|:--------------------------------:|:-----------:|:-------------:|:--------------:|
+| Dracut runtime                   |         17s |           13s |            10s |
+| QEMU boot time: kernel to /init  |        2.4s |          1.0s |           0.9s |
+| **initramfs `fiemap` data**      |             |               |                |
+|                       total size |         14M |           15M |            33M |
+|            shared (deduplicated) |           - |             - |            30M |
+|                        exclusive |         14M |           15M |             3M |
 
-**note**: Btrfs `fiemap` results varied significantly across multiple runs
+**Note**: Btrfs `fiemap` results varied significantly across multiple runs
 
 
 <!-- .slide: data-state="normal" id="reflinks-perf-xfs" data-timing="20s" data-menu-title="Reflinks Performance on XFS" -->
 # XFS Performance
 
-|   **XFS**                        |    Dracut `xz` |    Dracut `zstd`   |   Dracut reflink   |
-|:--------------------------------:|:--------------:|:------------------:|:------------------:|
-| Dracut runtime                   |  14.180s (ref) |  10.437s (-26.40%) |  9.7687s (-31.11%) |
-| QEMU boot time: kernel to /init  |   2373ms (ref) |  950.9ms (-59.92%) |  859.5ms (-63.78%) |
-| **initramfs `fiemap` data**      |                |                    |                    |
-|                      total bytes | 14675968 (ref) | 16158720 (+10.10%) | 34689024 (+136.4%) |
-|            shared (deduplicated) |        0 (ref) |         0 (±0.00%) |           26525696 |
-|                        exclusive | 14675968 (ref) | 16158720 (+10.10%) |  8163328 (-44.37%) |
+|   **XFS**                        | Dracut `xz` | Dracut `zstd` | Dracut reflink |
+|:--------------------------------:|:-----------:|:-------------:|:--------------:|
+| Dracut runtime                   |         14s |           10s |            10s |
+| QEMU boot time: kernel to /init  |        2.4s |          1.0s |           0.9s |
+| **initramfs `fiemap` data**      |             |               |                |
+|                       total size |         14M |           15M |            33M |
+|            shared (deduplicated) |           - |             - |            25M |
+|                        exclusive |         14M |           15M |             8M |
 
 
 <!-- .slide: data-state="normal" id="recommendations" data-timing="20s" data-menu-title="Recommendations" -->
