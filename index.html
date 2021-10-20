@@ -284,24 +284,26 @@ For all installed kernels:
 	      </li>
 	      <li class="fragment" data-fragment-index="4">
 		<strong>Postpone</strong> initramfs building from <tt>%post</tt>
-		to <tt>%posttrans</tt>
-		<ul>
-		  <li>for kernel <strong>subpackages</strong> like <tt>kernel-default-extra</tt> only,</li>
-		  <li>also for <strong>base packages</strong> like <tt>kernel-default</tt>;</li>
-		</ul>
+		to <tt>%posttrans</tt> for
+		kernel <strong>subpackages</strong>;
 	      </li>
-	      <li class="fragment" data-fragment-index="5">
+	    </ul>
+	    <p style="text-align: center" class="highlight fragment"  data-fragment-index="5">
+	      — planned for SLE15-SP4 up to here —</p>
+	    <ul>
+	      <li class="fragment" data-fragment-index="6">
+		<strong>Postpone</strong> initramfs building from <tt>%post</tt>
+		to <tt>%posttrans</tt> for kernel <strong>base packages</strong>;
+	      </li>
+	      <li class="fragment" data-fragment-index="7">
 		<strong>Incremental depmod</strong>: 
 		Avoid scanning every module, always. Patch set in the works;
 	      </li>
-	      <li class="fragment" data-fragment-index="6">
-		Apply <strong>parallelization</strong>:
-		<ul>
-		  <li>dracut invocation in <tt>%posttrans</tt>,</li>
-		  <li>KABI check in <tt>weak-modules2</tt>.</li>
-		</ul>
+	      <li class="fragment" data-fragment-index="8">
+		Use <strong>parallelization</strong> for operations over
+		multiple kernels;
 	      </li>
-	      <li class="fragment" data-fragment-index="7">
+	      <li class="fragment" data-fragment-index="9">
 		Optimize <strong>dracut</strong>… (not today!).
 	      </li>
 	    </ul>
@@ -329,7 +331,7 @@ For all installed kernels:
 		  <li class="fragment" data-fragment-index="5">
 		    (zstd instead of reflinks + 2.)
 		  </li>
-		  <li class="fragment" data-fragment-index="6">
+		  <li class="fragment highlight" data-fragment-index="6">
 		    <tt>%posttrans</tt> for subpkgs + 3.
 		  </li>
 		  <li class="fragment" data-fragment-index="7">
@@ -381,7 +383,7 @@ For all installed kernels:
 		  <li class="fragment" data-fragment-index="5">
 		    (zstd instead of reflinks + 2.)
 		  </li>
-		  <li class="fragment" data-fragment-index="6">
+		  <li class="fragment highlight" data-fragment-index="6">
 		    <tt>%posttrans</tt> for subpkgs + 3.
 		  </li>
 		  <li class="fragment" data-fragment-index="7">
@@ -418,10 +420,10 @@ For all installed kernels:
 # Optimizing Kernel and KMP Installation: Summary
 
 * Deterioration SP2 ⇒ SP3 caused by **depmod** on **xz**-compressed modules
-* Profiling showed multiple bottlenecks
+* Profiling showed multiple bottlenecks, to be fixed up one by one
 * Cumulative savings:
-  - Kernel installation: **66s ⇒ 21s**
-  - KMP installation: **100s ⇒ 15s**
+    - Kernel installation: **66s ⇒ 21s** (SLE15-SP4: 40s)
+    - KMP installation: **100s ⇒ 15s** (SLE15-SP4: 40s) 
 * Efficient initramfs generation is an important factor…
 
 </script>
