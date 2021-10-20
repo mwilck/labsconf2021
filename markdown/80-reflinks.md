@@ -22,11 +22,30 @@
 *   Btrfs or XFS filesystems only
 *   cpio archiver must perform reflink aware file I/O
     *   `copy_file_range()` or `FICLONERANGE`
-*   Sensitive to alignment
-    *   Complicated by cpio header requirements
 *   Initramfs sources, staging and destination paths must share a mount point
     *   **See Ludwig's talk: usrmerge and beyond**
 *   Causes significant fragmentation
+*   Sensitive to alignment
+
+
+<!-- .slide: data-state="normal" id="reflink-alignment" data-timing="20s" data-menu-title="Reflinks Alignment" -->
+# Reflinks: Alignment
+
+|  Field name  | Field size   |   Meaning                     |
+|:------------:|:------------:|:-----------------------------:|
+|  c_magic     |   6 bytes    |  The string "070701"          |
+|  c_ino       |   8 bytes    |  File inode number            |
+|  ...         |              |                               |
+|  c_filesize  |   8 bytes    |  Size of data field           |
+|  ...         |              |                               |
+|  c_namesize  |   8 bytes    |  Length of filename, incl. \0 |
+|  ...         |              |                               |
+|  filename    |  c_namesize  |  Zero terminated filename     |
+|  data        |  c_filesize  |  File data to align           |
+<!-- .element class="column-large" -->
+
+![Wheel Alignment](../images/Wheel_alignment_wik_CC-BY-SA-4.0.jpg)
+<!-- .element class="column-small" -->
 
 
 <!-- .slide: data-state="normal" id="reflinks-boot" data-timing="20s" data-menu-title="Reflinks Boot" -->
