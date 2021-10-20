@@ -168,13 +168,13 @@ CoW reflinks (David&apos;s topic) may be even better *(stay awake)* !
 # Module Compression: Effect on Disk Usage
 ## For kernel-default, x86_64
 
-|                          | # modules | rpm size | modules | difference |
-|:-------------------------|----------:|---------:|--------:|-----------:|
-| SLE15-SP2 (uncompressed) |      2061 |      55M |    170M |            |
-| SLE15-SP3 (xz)           |      2165 |      67M |     35M |      -135M |
-| SLE15-SP3 (zst)          |      2165 |      79M |     47M |      -123M |
+|                          | # modules | rpm size  |    modules |
+|:-------------------------|:----------|:----------|:-----------|
+| SLE15-SP2 (uncompressed) |      2061 | 55M       |       170M |
+| SLE15-SP3 (xz)           |      2165 | 67M (+12) | 35M (-135) |
+| SLE15-SP3 (zst)          |      2165 | 79M (+22) | 47M (-123) |
 
-Total additional disk space `zstd` vs. `xz`: ~17 MiB
+Note: Total additional disk space `zstd` vs. `xz`: ~17 MiB
   
 Note: the rpm <tt>%{size}</tt> property of SUSE kernel
 packages is incorrect because of the included <tt>%{ghost}</tt> files.
