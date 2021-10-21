@@ -253,15 +253,13 @@ e.g. startup, syncing.
 	    <h2>Time spent in <tt>weak-modules2</tt></h2>
 	      <div class="multicol">
 		<div class="col"  data-markdown>
-### KMP installation
+### KMP installation (simplified)
 
-For all installed kernels:
-1. Check if the KMP being installed replaces an existing one
-2. Attempt replacement or addition, check KABI compatibility with
-`depmod`
-3. Add symlinks under `weak-modules/`
-4. Run `depmod`
-5. If modules in Initramfs are affected (`lsinitrd`), schedule Initramfs rebuild
+For all installed kernels :
+1. Attempt addition of the KMP, check KABI with `depmod`
+2. If successful, add symlinks under `weak-modules/`
+3. Run `depmod`
+4. If modules in Initramfs are affected (`lsinitrd`), schedule Initramfs rebuild
 		</div>
 		<div class="col" style="flex-grow: 1.0">
 		  <img src="images/KMP-inst-00.svg"/>
