@@ -1,0 +1,770 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700);
+@font-face {
+  font-family: 'Special Elite';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Special Elite"), local("SpecialElite-Regular"), url(../fonts/Special-Elite.ttf) format("truetype"); }
+.reveal {
+  /* Blow iframe up to full screen size */ }
+  .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6, .reveal div, .reveal p, .reveal span, .reveal ul, .reveal ol, .reveal pre, .reveal th, .reveal td {
+    font-family: "Poppins", Verdana, Arial, sans-serif;
+    font-style: normal; }
+  .reveal tt, .reveal code, .reveal code * {
+    font-family: "Roboto mono", Courier, monospace; }
+  .reveal .slides {
+    box-shadow: 2px 2px 20px;
+    border: none 2px magenta;
+    margin: 0; }
+    .reveal .slides > .pdf-page, .reveal .slides > section {
+      border: none 2px red;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%; }
+      .reveal .slides > .pdf-page .highlight, .reveal .slides > section .highlight {
+        color: #FE7C3F; }
+      .reveal .slides > .pdf-page h1, .reveal .slides > .pdf-page h2, .reveal .slides > .pdf-page h3, .reveal .slides > .pdf-page h4, .reveal .slides > .pdf-page h5, .reveal .slides > .pdf-page h6, .reveal .slides > .pdf-page div, .reveal .slides > .pdf-page p, .reveal .slides > .pdf-page span, .reveal .slides > .pdf-page ul, .reveal .slides > .pdf-page ol, .reveal .slides > .pdf-page pre, .reveal .slides > .pdf-page th, .reveal .slides > .pdf-page td, .reveal .slides > section h1, .reveal .slides > section h2, .reveal .slides > section h3, .reveal .slides > section h4, .reveal .slides > section h5, .reveal .slides > section h6, .reveal .slides > section div, .reveal .slides > section p, .reveal .slides > section span, .reveal .slides > section ul, .reveal .slides > section ol, .reveal .slides > section pre, .reveal .slides > section th, .reveal .slides > section td {
+        font-size: 30px;
+        font-weight: 300; }
+      .reveal .slides > .pdf-page h1, .reveal .slides > section h1 {
+        font-weight: 500;
+        font-size: 54px;
+        line-height: 1.1; }
+      .reveal .slides > .pdf-page h2, .reveal .slides > section h2 {
+        font-size: 35px;
+        line-height: 1.1; }
+      .reveal .slides > .pdf-page h3, .reveal .slides > section h3 {
+        font-weight: 500; }
+      .reveal .slides > .pdf-page small, .reveal .slides > section small {
+        font-size: 27px; }
+      .reveal .slides > .pdf-page sup, .reveal .slides > .pdf-page sub, .reveal .slides > section sup, .reveal .slides > section sub {
+        font-size: 23px; }
+      .reveal .slides > .pdf-page strong, .reveal .slides > section strong {
+        font-weight: 500;
+        color: #0c322c; }
+      .reveal .slides > .pdf-page table th, .reveal .slides > section table th {
+        font-weight: 400; }
+      .reveal .slides > .pdf-page tt, .reveal .slides > .pdf-page code, .reveal .slides > .pdf-page code *, .reveal .slides > section tt, .reveal .slides > section code, .reveal .slides > section code * {
+        font-weight: 400;
+        text-shadow: none;
+        text-transform: none; }
+      .reveal .slides > .pdf-page section, .reveal .slides > section section {
+        /* Margin percentages (e.g. 5%) are treated as being relative to the
+        containing element's *width*, even the top and bottom margins. */
+        margin: 3.375% 5%;
+        width: 90%;
+        height: 88%;
+        padding: 0; }
+      .reveal .slides > .pdf-page img, .reveal .slides > section img {
+        /* Disable background 4px border around images */
+        border: none;
+        background: none;
+        box-shadow: none; }
+      .reveal .slides > .pdf-page .full-screen, .reveal .slides > section .full-screen {
+        width: 1600;
+        height: 900;
+        margin: 0;
+        max-width: 1000%;
+        max-height: 1000%; }
+        .reveal .slides > .pdf-page .full-screen a, .reveal .slides > section .full-screen a {
+          height: 100%;
+          width: 100%; }
+        .reveal .slides > .pdf-page .full-screen img, .reveal .slides > .pdf-page .full-screen iframe, .reveal .slides > section .full-screen img, .reveal .slides > section .full-screen iframe {
+          margin: 0 0 0 0;
+          height: 100%;
+          width: 100%;
+          object-fit: contain;
+          max-width: 100%;
+          max-height: 100%; }
+    .reveal .slides .vcenter {
+      display: flex;
+      align-items: center; }
+    .reveal .slides li + li {
+      margin-top: 0.4em; }
+    .reveal .slides p {
+      margin: 0; }
+    .reveal .slides a {
+      text-decoration: none;
+      color: #FE7C3F !important; }
+    .reveal .slides a:hover {
+      color: #FE7C3F !important;
+      text-decoration: underline; }
+    .reveal .slides .progress span {
+      background-color: black;
+      z-index: 2; }
+    .reveal .slides sup {
+      vertical-align: top;
+      position: relative;
+      top: 0.3em; }
+    .reveal .slides sub {
+      vertical-align: baseline; }
+    .reveal .slides pre {
+      box-shadow: none;
+      padding: 13px 13px; }
+    .reveal .slides section ul {
+      margin-left: 20px;
+      margin-top: 0.6em;
+      padding-left: 40px;
+      border: none 1px yellow;
+      list-style-type: none; }
+      .reveal .slides section ul li:before {
+        content: "–";
+        font-weight: 700;
+        color: #30ba78;
+        float: left;
+        margin-left: -40px; }
+      .reveal .slides section ul ul li:before, .reveal .slides section ul ol li:before {
+        content: "–";
+        font-weight: 400;
+        color: #30ba78; }
+      .reveal .slides section ul ul li, .reveal .slides section ul ol li {
+        font-size: 27px; }
+    .reveal .slides section li {
+      border: none 1px blue;
+      padding: 0 0; }
+  .reveal .overlay-help .viewport th, .reveal .overlay-help .viewport td {
+    color: #30ba78; }
+  .reveal iframe {
+    height: 90%;
+    width: 100%;
+    margin: 2%; }
+  .reveal .progress {
+    color: #FE7C3F; }
+  .reveal .controls {
+    color: #0c322c; }
+    .reveal .controls div.navigate-up, .reveal .controls div.navigate-up.enabled {
+      border-bottom-color: black; }
+    .reveal .controls div.navigate-down, .reveal .controls div.navigate-down.enabled {
+      border-top-color: black; }
+    .reveal .controls div.navigate-left, .reveal .controls div.navigate-left.enabled {
+      border-right-color: black; }
+    .reveal .controls div.navigate-right, .reveal .controls div.navigate-right.enabled {
+      border-left-color: black; }
+  .reveal .stamp {
+    position: absolute;
+    color: red !important;
+    font-size: 6em !important;
+    font-family: "Special Elite" !important;
+    transform: rotate(-45deg);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -20vw;
+    margin-top: -10vh;
+    text-shadow: none; }
+  .reveal .slide-menu .slide-menu-item {
+    padding-top: 5px;
+    padding-bottom: 0px;
+    margin-bottom: 2px; }
+  .reveal .slide-menu .slide-menu-item-vertical {
+    padding-top: 4px;
+    padding-bottom: 2px; }
+
+@media print {
+  .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+    color: black; } }
+.qrcode .reveal .slide-number {
+  display: none !important; }
+.qrcode .slides {
+  background: url(../images/SUSE/top-bar.png) 0% 0%/100% 1% no-repeat, linear-gradient(180deg, white 70%, white 30%) !important; }
+.qrcode img {
+  height: 70% !important;
+  width: auto !important;
+  background-color: white !important;
+  padding: 1em; }
+
+.qrcode .reveal section .qrcode img, .normal .reveal section .qrcode img {
+  margin-left: auto;
+  margin-right: auto; }
+
+.normal .reveal section .qrcode img {
+  padding: 0; }
+
+.cover .reveal .slides {
+  position: relative;
+  text-align: inherit; }
+  .cover .reveal .slides .pdf-page, .cover .reveal .slides > section {
+    width: 100%;
+    height: 100%; }
+  .cover .reveal .slides div.cover, .cover .reveal .slides > section {
+    background: url(../images/SUSE/SUSE-logo.svg) 5% 5%/15% 15% no-repeat, url("../images/SUSE/infinity.png") 0% 100%/100% 40% no-repeat, #0c322c; }
+  .cover .reveal .slides .date-location {
+    color: #30ba78;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 600;
+    position: absolute;
+    bottom: 600px;
+    left: 0;
+    letter-spacing: 1px; }
+  .cover .reveal .slides .title div {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%; }
+  .cover .reveal .slides .title h1, .cover .reveal .slides .title h2, .cover .reveal .slides .title h3, .cover .reveal .slides .title h4, .cover .reveal .slides .title h5, .cover .reveal .slides .title h6 {
+    color: white; }
+  .cover .reveal .slides .title h1 {
+    position: absolute;
+    left: 0;
+    width: 612px;
+    bottom: 408px;
+    float: left;
+    margin-bottom: 0em; }
+  .cover .reveal .slides .title h2 {
+    position: absolute;
+    left: 954px;
+    width: 456px;
+    bottom: 408px;
+    font-size: 30px;
+    margin-bottom: 0em; }
+  .cover .reveal .slides .qr-embedded {
+    position: absolute;
+    top: -2%;
+    right: 7%;
+    width: 30%;
+    height: 30%; }
+    .cover .reveal .slides .qr-embedded .qrcode {
+      position: relative;
+      left: 30%; }
+    .cover .reveal .slides .qr-embedded h2 {
+      font-size: 90%;
+      text-align: right;
+      margin-top: 0%;
+      margin-right: 14%; }
+      .cover .reveal .slides .qr-embedded h2 a {
+        color: white !important; }
+.cover .reveal .slide-number {
+  display: none !important; }
+
+.cover-alternate .reveal .slides {
+  position: relative;
+  text-align: inherit; }
+  .cover-alternate .reveal .slides .pdf-page, .cover-alternate .reveal .slides > section {
+    width: 100%;
+    height: 100%; }
+  .cover-alternate .reveal .slides div.cover, .cover-alternate .reveal .slides > section {
+    background: url(../images/SUSE/SUSE-logo.svg) 5% 5%/15% 15% no-repeat, url("../images/SUSE/infinity-mars.png") 0% 100%/100% 40% no-repeat, #0c322c; }
+  .cover-alternate .reveal .slides .date-location {
+    color: #30ba78;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 600;
+    position: absolute;
+    bottom: 600px;
+    left: 0;
+    letter-spacing: 1px; }
+  .cover-alternate .reveal .slides .title div {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%; }
+  .cover-alternate .reveal .slides .title h1, .cover-alternate .reveal .slides .title h2, .cover-alternate .reveal .slides .title h3, .cover-alternate .reveal .slides .title h4, .cover-alternate .reveal .slides .title h5, .cover-alternate .reveal .slides .title h6 {
+    color: white; }
+  .cover-alternate .reveal .slides .title h1 {
+    position: absolute;
+    left: 0;
+    width: 612px;
+    bottom: 408px;
+    float: left;
+    margin-bottom: 0em; }
+  .cover-alternate .reveal .slides .title h2 {
+    position: absolute;
+    left: 954px;
+    width: 456px;
+    bottom: 408px;
+    font-size: 30px;
+    margin-bottom: 0em; }
+  .cover-alternate .reveal .slides .qr-embedded {
+    position: absolute;
+    top: -2%;
+    right: 7%;
+    width: 30%;
+    height: 30%; }
+    .cover-alternate .reveal .slides .qr-embedded .qrcode {
+      position: relative;
+      left: 30%; }
+    .cover-alternate .reveal .slides .qr-embedded h2 {
+      font-size: 90%;
+      text-align: right;
+      margin-top: 0%;
+      margin-right: 14%; }
+      .cover-alternate .reveal .slides .qr-embedded h2 a {
+        color: white !important; }
+.cover-alternate .reveal .slide-number {
+  display: none !important; }
+
+.normal .reveal .slides {
+  background: url(../images/SUSE/top-bar.png) 0% 0%/100% 1% no-repeat, linear-gradient(180deg, white 70%, white 30%) !important;
+  text-align: inherit;
+  color: #0c322c !important; }
+  .normal .reveal .slides h1 {
+    margin-bottom: 120px;
+    color: #0c322c; }
+  .normal .reveal .slides h2 {
+    color: #0c322c; }
+  .normal .reveal .slides h3 {
+    margin-top: 0.2rem;
+    margin-bottom: 1.5rem;
+    color: #30ba78; }
+  .normal .reveal .slides h1 + h2 {
+    margin-bottom: 100px;
+    margin-top: -100px; }
+  .normal .reveal .slides .column {
+    width: 45%;
+    display: inline-block;
+    vertical-align: top; }
+  .normal .reveal .slides .column-small {
+    width: 20%;
+    display: inline-block;
+    vertical-align: top; }
+  .normal .reveal .slides .column-large {
+    width: 70%;
+    display: inline-block;
+    vertical-align: top; }
+  .normal .reveal .slides .multicol {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    gap: 24px; }
+  .normal .reveal .slides .col {
+    flex: 1 0 1px; }
+  .normal .reveal .slides .footnote {
+    font-size: 24px;
+    bottom: 30px;
+    position: absolute; }
+  .normal .reveal .slides p {
+    margin-bottom: 0.4em; }
+  .normal .reveal .slides li > p {
+    margin-bottom: 0; }
+  .normal .reveal .slides ul + h3, .normal .reveal .slides ul + p, .normal .reveal .slides ol + h3, .normal .reveal .slides ol + p {
+    margin-top: 0.8em; }
+  .normal .reveal .slides img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto; }
+  .normal .reveal .slides img.full-slide {
+    width: 80%;
+    max-width: 80%;
+    max-height: 80%; }
+  .normal .reveal .slides table {
+    margin-bottom: 1em; }
+  .normal .reveal .slides .hljs {
+    min-height: 0; }
+.normal .reveal .slide-number {
+  position: absolute;
+  left: 3.5%;
+  bottom: 1.2%;
+  background-color: transparent;
+  z-index: 1; }
+  .normal .reveal .slide-number span {
+    font-size: 14px;
+    color: #0c322c;
+    display: inline-block;
+    transform: translateX(1200px); }
+.normal .reveal .slide-number:after {
+  content: "Copyright © SUSE 2021";
+  display: inline-block;
+  color: #0c322c;
+  margin-left: 0; }
+.normal .reveal .slide-number:before {
+  content: url("../images/SUSE/chameleon.svg");
+  display: inline-block;
+  vertical-align: middle;
+  transform: scale(0.5);
+  width: 55;
+  margin-right: 0; }
+
+.reveal .slides .pdf-page h1 {
+  margin-bottom: 120px;
+  color: #0c322c; }
+.reveal .slides .pdf-page h2 {
+  color: #0c322c; }
+.reveal .slides .pdf-page h3 {
+  margin-top: 0.2rem;
+  margin-bottom: 1.5rem;
+  color: #30ba78; }
+.reveal .slides .pdf-page h1 + h2 {
+  margin-bottom: 100px;
+  margin-top: -100px; }
+.reveal .slides .pdf-page .column {
+  width: 45%;
+  display: inline-block;
+  vertical-align: top; }
+.reveal .slides .pdf-page .column-small {
+  width: 20%;
+  display: inline-block;
+  vertical-align: top; }
+.reveal .slides .pdf-page .column-large {
+  width: 70%;
+  display: inline-block;
+  vertical-align: top; }
+.reveal .slides .pdf-page .multicol {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  gap: 24px; }
+.reveal .slides .pdf-page .col {
+  flex: 1 0 1px; }
+.reveal .slides .pdf-page .footnote {
+  font-size: 24px;
+  bottom: 30px;
+  position: absolute; }
+.reveal .slides .pdf-page p {
+  margin-bottom: 0.4em; }
+.reveal .slides .pdf-page li > p {
+  margin-bottom: 0; }
+.reveal .slides .pdf-page ul + h3, .reveal .slides .pdf-page ul + p, .reveal .slides .pdf-page ol + h3, .reveal .slides .pdf-page ol + p {
+  margin-top: 0.8em; }
+.reveal .slides .pdf-page img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto; }
+.reveal .slides .pdf-page img.full-slide {
+  width: 80%;
+  max-width: 80%;
+  max-height: 80%; }
+.reveal .slides .pdf-page table {
+  margin-bottom: 1em; }
+.reveal .slides .pdf-page .hljs {
+  min-height: 0; }
+.reveal .slides .pdf-page h1 {
+  margin-top: 54px; }
+.reveal .slides .pdf-page > section:not(.cover) {
+  background: url(../images/SUSE/top-bar.png) 0% 0%/100% 1% no-repeat, linear-gradient(180deg, white 70%, white 30%) !important; }
+
+.blank-slide .reveal .slide-number {
+  display: none !important; }
+
+.toc .reveal .slides section h1 {
+  position: relative;
+  width: 560px;
+  top: 35%;
+  margin: 0; }
+.toc .reveal .slides section > p {
+  right: 0;
+  bottom: 90px;
+  width: 1040px;
+  position: absolute; }
+.toc .reveal .slides section ol {
+  padding-left: 45px;
+  right: 0;
+  width: 995px;
+  position: absolute; }
+  .toc .reveal .slides section ol li {
+    color: #30ba78;
+    margin-top: 3rem;
+    line-height: 0; }
+    .toc .reveal .slides section ol li p {
+      margin-bottom: 0;
+      display: inline; }
+    .toc .reveal .slides section ol li blockquote {
+      color: #0c322c;
+      font-size: 2rem;
+      box-shadow: none;
+      background: none;
+      margin: 0;
+      padding: 0;
+      font-style: normal;
+      width: 100%; }
+
+.reveal .slides .pdf-page > section.toc h1 {
+  position: relative;
+  width: 560px;
+  top: 35%;
+  margin: 0; }
+.reveal .slides .pdf-page > section.toc > p {
+  right: 0;
+  bottom: 90px;
+  width: 1040px;
+  position: absolute; }
+.reveal .slides .pdf-page > section.toc ol {
+  padding-left: 45px;
+  right: 0;
+  width: 995px;
+  position: absolute; }
+  .reveal .slides .pdf-page > section.toc ol li {
+    color: #30ba78;
+    margin-top: 3rem;
+    line-height: 0; }
+    .reveal .slides .pdf-page > section.toc ol li p {
+      margin-bottom: 0;
+      display: inline; }
+    .reveal .slides .pdf-page > section.toc ol li blockquote {
+      color: #0c322c;
+      font-size: 2rem;
+      box-shadow: none;
+      background: none;
+      margin: 0;
+      padding: 0;
+      font-style: normal;
+      width: 100%; }
+.reveal .slides .pdf-page > section.toc ol {
+  margin-top: 54px; }
+
+.contact .reveal .slides .contacts {
+  display: flex;
+  flex-flow: row;
+  justify-content: left;
+  align-items: top;
+  height: 88%;
+  width: 92%; }
+.contact .reveal .slides .persimon {
+  background-color: #FE7C3F !important; }
+.contact .reveal .slides .midnight {
+  background-color: #192072 !important; }
+.contact .reveal .slides .waterhole {
+  background-color: #2453FF !important; }
+.contact .reveal .slides .contact {
+  flex-basis: 25%;
+  float: left;
+  height: 70%;
+  margin: 0.5em;
+  background-color: #30ba78;
+  color: white; }
+  .contact .reveal .slides .contact figure {
+    height: 70%;
+    width: 100%;
+    margin: 0; }
+    .contact .reveal .slides .contact figure img {
+      max-width: 100%;
+      height: 100%;
+      margin: 0; }
+  .contact .reveal .slides .contact .name {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-left: 20px; }
+  .contact .reveal .slides .contact .job {
+    font-size: 0.4em;
+    margin-bottom: 1em;
+    margin-left: 20px; }
+  .contact .reveal .slides .contact .email, .contact .reveal .slides .contact .phone {
+    font-size: 0.4em;
+    margin-left: 20px; }
+
+.blue .reveal .slides {
+  background: url(../images/SUSE/top-bar.png) 0% 0%/100% 1% no-repeat, linear-gradient(180deg, #192072 70%, #2453FF 30%) !important; }
+
+.divider .reveal .slides {
+  background: url(../images/SUSE/top-bar.png) 0% 0%/100% 1% no-repeat, linear-gradient(180deg, #0c322c 70%, #30ba78 30%) !important; }
+  .divider .reveal .slides img {
+    position: absolute;
+    height: 100%;
+    max-height: 100%;
+    width: 900px;
+    max-width: 900px;
+    margin: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+    padding-top: 1%;
+    overflow: hidden;
+    object-fit: contain; }
+  .divider .reveal .slides h1, .divider .reveal .slides h2 {
+    text-align: left;
+    color: white;
+    float: left;
+    width: 480px;
+    left: 5%;
+    position: absolute;
+    margin: 0; }
+  .divider .reveal .slides h1 {
+    bottom: 360px; }
+  .divider .reveal .slides h2 {
+    font-size: 30px;
+    top: 660px; }
+.divider .reveal .slide-number {
+  position: absolute;
+  left: 3.5%;
+  bottom: 1.2%;
+  background-color: transparent;
+  z-index: 1; }
+  .divider .reveal .slide-number span {
+    font-size: 14px;
+    color: white;
+    display: inline-block;
+    transform: translateX(1200px); }
+.divider .reveal .slide-number:after {
+  content: "Copyright © SUSE 2021";
+  display: inline-block;
+  color: white;
+  margin-left: 0; }
+.divider .reveal .slide-number:before {
+  content: url("../images/SUSE/chameleon-white.svg");
+  display: inline-block;
+  vertical-align: middle;
+  transform: scale(0.5);
+  width: 55;
+  margin-right: 0; }
+
+.subdivider .reveal .slides {
+  background: url(../images/SUSE/top-bar.png) 0% 0%/100% 1% no-repeat, #30ba78; }
+  .subdivider .reveal .slides img {
+    position: absolute;
+    height: 100%;
+    max-height: 100%;
+    width: 900px;
+    max-width: 900px;
+    margin: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+    padding-top: 1%;
+    overflow: hidden;
+    object-fit: contain; }
+  .subdivider .reveal .slides h1, .subdivider .reveal .slides h2 {
+    text-align: left;
+    color: white;
+    float: left;
+    width: 480px;
+    left: 5%;
+    position: absolute;
+    margin: 0; }
+  .subdivider .reveal .slides h1 {
+    bottom: 360px; }
+  .subdivider .reveal .slides h2 {
+    font-size: 30px;
+    top: 660px; }
+.subdivider .reveal .slide-number {
+  position: absolute;
+  left: 3.5%;
+  bottom: 1.2%;
+  background-color: transparent;
+  z-index: 1; }
+  .subdivider .reveal .slide-number span {
+    font-size: 14px;
+    color: white;
+    display: inline-block;
+    transform: translateX(1200px); }
+.subdivider .reveal .slide-number:after {
+  content: "Copyright © SUSE 2021";
+  display: inline-block;
+  color: white;
+  margin-left: 0; }
+.subdivider .reveal .slide-number:before {
+  content: url("../images/SUSE/chameleon-white.svg");
+  display: inline-block;
+  vertical-align: middle;
+  transform: scale(0.5);
+  width: 55;
+  margin-right: 0; }
+
+.reveal .slides .pdf-page > section.divider {
+  background: url(../images/SUSE/top-bar.png) 0% 0%/100% 1% no-repeat, linear-gradient(180deg, #0c322c 70%, #30ba78 30%) !important; }
+  .reveal .slides .pdf-page > section.divider img {
+    position: absolute;
+    height: 100%;
+    max-height: 100%;
+    width: 900px;
+    max-width: 900px;
+    margin: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+    padding-top: 1%;
+    overflow: hidden;
+    object-fit: contain; }
+  .reveal .slides .pdf-page > section.divider h1, .reveal .slides .pdf-page > section.divider h2 {
+    text-align: left;
+    color: white;
+    float: left;
+    width: 480px;
+    left: 5%;
+    position: absolute;
+    margin: 0; }
+  .reveal .slides .pdf-page > section.divider h1 {
+    bottom: 360px; }
+  .reveal .slides .pdf-page > section.divider h2 {
+    font-size: 30px;
+    top: 660px; }
+
+.reveal .slides .pdf-page > section.subdivider {
+  background: url(../images/SUSE/top-bar.png) 0% 0%/100% 1% no-repeat, linear-gradient(180deg, #0c322c 70%, #30ba78 30%) !important; }
+  .reveal .slides .pdf-page > section.subdivider img {
+    position: absolute;
+    height: 100%;
+    max-height: 100%;
+    width: 900px;
+    max-width: 900px;
+    margin: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+    padding-top: 1%;
+    overflow: hidden;
+    object-fit: contain; }
+  .reveal .slides .pdf-page > section.subdivider h1, .reveal .slides .pdf-page > section.subdivider h2 {
+    text-align: left;
+    color: white;
+    float: left;
+    width: 480px;
+    left: 5%;
+    position: absolute;
+    margin: 0; }
+  .reveal .slides .pdf-page > section.subdivider h1 {
+    bottom: 360px; }
+  .reveal .slides .pdf-page > section.subdivider h2 {
+    font-size: 30px;
+    top: 660px; }
+
+/* divider customization to have an image covering  a square area (width = height) 
+   on the right side entirely */
+#divider, #divider-blue,
+#subdivider, #subdivider-blue {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0; }
+  #divider a, #divider-blue a,
+  #subdivider a, #subdivider-blue a {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 900px;
+    overflow: hidden; }
+
+.thanks .reveal .slides {
+  margin: 0;
+  background: url(../images/SUSE/SUSE-logo.svg) 5% 5%/15% 15% no-repeat, url("../images/SUSE/infinity.png") 0% 100%/100% 40% no-repeat, #0c322c;
+  position: relative;
+  text-align: inherit; }
+  .thanks .reveal .slides > .pdf-page, .thanks .reveal .slides > section {
+    /* Margin percentages (e.g. 5%) are treated as being relative to the
+    containing element's *width*, even the top and bottom margins. */
+    margin: 3.375% 5%;
+    width: 90%;
+    height: 88%; }
+  .thanks .reveal .slides h1 {
+    position: absolute;
+    top: 40%;
+    color: white;
+    font-size: 4rem;
+    font-weight: normal;
+    margin-bottom: 0em; }
+  .thanks .reveal .slides p, .thanks .reveal .slides div {
+    color: white;
+    font-size: 0.7em; }
+  .thanks .reveal .slides .more {
+    position: absolute;
+    left: 25%;
+    bottom: 50%; }
+  .thanks .reveal .slides .address {
+    position: absolute;
+    left: 50%;
+    bottom: 50%; }
+  .thanks .reveal .slides .legal {
+    position: absolute;
+    font-size: 0.4em;
+    width: 20%;
+    left: 70%;
+    bottom: 50%; }
+.thanks .reveal .slide-number {
+  display: none !important; }
+
+/*# sourceMappingURL=reveal-override.css.map */
